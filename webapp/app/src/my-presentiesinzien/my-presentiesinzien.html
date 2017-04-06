@@ -1,0 +1,62 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+
+<dom-module id="my-presentiesinzien"> <template>
+<style>
+:host {
+	display: block;
+	padding: 10px 20px;
+}
+
+.button1 {
+	background-color:#1A9FD9;
+	color:white;
+}
+
+.content {
+
+}
+
+
+      }
+
+</style>
+
+<!-- 
+      If deploying in a folder replace href="/" with the full path to your site.
+      Such as: href=="http://polymerelements.github.io/polymer-starter-kit"
+    -->
+
+<center><h1>Kies uw reden:</h1></center>
+  <paper-listbox class="content" selected="0">
+    <paper-item value="ziek" >Ziek</paper-item> 
+    <paper-item value="dokter">Dokter</paper-item>
+    <paper-item value="familie">Familie zaken</paper-item> 
+    <paper-item value="familie"><paper-input label="Anders" style="width:40em"></paper-input></paper-item>    
+  </paper-listbox>    
+<br>
+<paper-button raised class="button1">Absent melden</paper-button>
+
+
+</template> <script>
+	Polymer({
+		is : 'my-presentiesinzien',
+	});
+</script> </dom-module>
+
