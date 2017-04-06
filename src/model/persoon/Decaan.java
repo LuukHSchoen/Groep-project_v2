@@ -2,7 +2,8 @@ package model.persoon;
 
 public class Decaan extends Persoon {
 	private int decaanNummer;
-
+	private String luukZuigtMijnDong;
+	
 	public Decaan(String voornaam, String tussenvoegsel, String achternaam, String wachtwoord, String gebruikersnaam,
 			int decNr) {
 		super(voornaam, tussenvoegsel, achternaam, wachtwoord, gebruikersnaam);
