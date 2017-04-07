@@ -1,17 +1,20 @@
 package model.klas;
 
-//import java.util.ArrayList;
-
-import model.PrIS;
-//import model.persoon.Student;
-
 public class Presentie {
-	PrIS p1 = new PrIS();
+	private ArrayList<Student> lStudentenVanKlas;
+	private ArrayList<College> deColleges;
+	private PrIS informatieSysteem;
 
-	public String getStudent(){
-		p1.
-	
-	
-	
+	public Presentie(PrIS infoSys) {
+		informatieSysteem = infoSys;
 	}
+	
+	public void ophalen(Conversation conversation) {
+		Student lStudentZelf = informatieSysteem.getStudent(lGebruikersnaam);
+		Klas lKlas = informatieSysteem.getKlasVanStudent(lStudentZelf);
+		College lCollege = 
+	}
+
+	}
+	
 }
