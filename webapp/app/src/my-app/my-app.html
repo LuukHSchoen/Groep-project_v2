@@ -158,6 +158,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   
                   
                   <!-- beschikbaar voor docent---------------------------------------------------- -->
+                  
+                  
+                  <a name="my-presentiesInvoeren" href$="[[_c_baseURL]]my-presentiesInvoeren" verborgen$="[[!_are_strings_equal(_rol, 'docent')]]">
+                    <iron-icon icon="icons:today"></iron-icon>
+                    <span>Presenties invoeren</span>
+                  </a>
+                  
+                  <a name="my-presentiesAanpassen" href$="[[_c_baseURL]]my-presentiesAanpassen" verborgen$="[[!_are_strings_equal(_rol, 'docent')]]">
+                    <iron-icon icon="icons:today"></iron-icon>
+                    <span>Presenties aanpassen</span>
+                  </a>
 
                   <!-- beschikbaar voor student--------------------------------------------------- -->
                   <a name="student_medestudenten" href$="[[_c_baseURL]]student/medestudenten"  verborgen$="[[!_are_strings_equal(_rol, 'student')]]">
@@ -165,11 +176,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <span>Toon medestudenten</span>
                   </a>  
                   
-                  <a name="absent" href$="[[_c_baseURL]]absent" verborgen$="[[!_are_strings_equal(_rol, 'student')]]">
+                  <a name="my-absent" href$="[[_c_baseURL]]my-absent" verborgen$="[[!_are_strings_equal(_rol, 'student')]]">
                     <iron-icon icon="icons:today"></iron-icon>
                     <span>Absent melden</span>
-                  </a> 
-                  
+                  </a>                 
                  
                   
                   <a name="my-presentiesinzien" href$="[[_c_baseURL]]my-presentiesinzien" verborgen$="[[!_are_strings_equal(_rol, 'student')]]">
@@ -177,15 +187,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <span>Presenties inzien</span>
                   </a> 
                   
+                  <!-- beschikbaar voor decaan---------------------------------------------------- -->
                   
+                   <a name="my-overzichtAlles" href$="[[_c_baseURL]]my-overzichtAlles" verborgen$="[[!_are_strings_equal(_rol, 'decaan')]]">
+                    <iron-icon icon="icons:today"></iron-icon>
+                    <span>Overzicht aanwezigheid</span>
+                  </a> 
                   
-                  
-                  
-                  
-                  
-                  
-                  
-
+                   <!-- beschikbaar voor management---------------------------------------------------- -->
+                   
+                  <a name="my-overzichtAlles" href$="[[_c_baseURL]]my-overzichtAlles" verborgen$="[[!_are_strings_equal(_rol, 'management')]]">
+                    <iron-icon icon="icons:today"></iron-icon>
+                    <span>Overzicht aanwezigheid</span>
+                  </a> 
+         
                 </iron-selector>
               </app-drawer>
 
@@ -193,7 +208,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <!-- blue title toolbar in menu -->
               <app-toolbar class="toolbar">
                 <paper-icon-button  icon="menu" drawer-toggle></paper-icon-button>
-                <span>[[_ar_selected_object.title]] ([[_systeemdatumlokaal]])</span>
+                <span>[[_ar_selected_object.title]] ([[_systeemdatumlokaal]])  </span>
+                
               </app-toolbar>
               
               <iron-pages 
@@ -215,7 +231,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            <section name="home" title="HOME" element$="none"> 
             <paper-material elevation="1">
               <p>Demo app gebaseerd op Polymer.</p>
-              <p>Deze app past nadat je bent ingeloggen het menu aan, aan de rol die gekoppeld is aan de ingeloggede user.</p>
+              <p>Deze app past nadat je bent ingeloggen het menu aan, aan de rol die gekoppeld is aan de ingelogde user.</p>
             </paper-material>
           </section>
 
@@ -257,6 +273,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <!-- sections voor docent -->
             
+            <section  name="my-presentiesInvoeren" 
+                  title="PRESENTIES INVOEREN" 
+                  element="my-presentiesInvoeren">
+                  <paper-material elevation="1">
+                    <my-presentiesInvoeren
+                    c_visible="[[_are_strings_equal(_ar_page, 'my-presentiesInvoeren)]]"
+                    c_rol="[[_rol]]"
+                    c_username="[[_username]]"> </my-presentiesInvoeren>
+                  </paper-material>
+                </section> 
+                
+                <section  name="my-presentiesAanpassen" 
+                  title="PRESENTIES AANPASSEN" 
+                  element="my-presentiesAanpassen">
+                  <paper-material elevation="1">
+                    <my-presentiesAanpassen
+                    c_visible="[[_are_strings_equal(_ar_page, 'my-presentiesAanpassen)]]"
+                    c_rol="[[_rol]]"
+                    c_username="[[_username]]"> </my-presentiesAanpassen>
+                  </paper-material>
+                </section>
+            
             <!-- sections voor student -->
             <section  name="student_medestudenten" 
             title="OVERZICHT MEDESTUDENTEN"
@@ -276,12 +314,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </paper-material>
                   </section>
                   
-                  <section  name="absent" 
+                  <section  name="my-absent" 
                   title="ABSENT MELDEN" 
-                  element="absent">
+                  element="my-absent">
                   <paper-material elevation="1">
                     <my-absent 
-                    c_visible="[[_are_strings_equal(_ar_page, 'absent')]]"
+                    c_visible="[[_are_strings_equal(_ar_page, 'my-absent')]]"
                     c_rol="[[_rol]]"
                     c_username="[[_username]]"> </my-absent>
                   </paper-material>
@@ -298,6 +336,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </paper-material>
                 </section>      
                 
+                <section  name="my-overzichtAlles" 
+                  title="OVERZICHT AANWEZIGHEID" 
+                  element="my-overzichtAlles">
+                  <paper-material elevation="1">
+                    <my-my-overzicht
+                    c_visible="[[_are_strings_equal(_ar_page, 'my-overzichtAlles)]]"
+                    c_rol="[[_rol]]"
+                    c_username="[[_username]]"> </my-overzicht>
+                  </paper-material>
+                </section> 
+                 
+                 
 
                 
 
