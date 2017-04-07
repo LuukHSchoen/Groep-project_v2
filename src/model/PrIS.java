@@ -122,9 +122,9 @@ public class PrIS {
 		return lString;
 	}
 	//Om een sessie te krijgen via een datum
-	public Sessie getSessieOpDatum(String dm){
+	public Sessie getSessiesOpDatumEnKlas(String dm, String ks){
 		for(Sessie pSessie : deSessies){
-			if (pSessie.getCollege().getDatum().equals(dm)){
+			if (pSessie.getCollege().getDatum().equals(dm) && pSessie.getKlas().getKlasCode().equals(ks)){
 				return pSessie;
 			}
 		}
