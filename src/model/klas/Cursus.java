@@ -1,17 +1,20 @@
 package model.klas;
 
+
 public class Cursus {
-	private String naam;
+	private String cursusCode;
+	private String vaknaam;
 	
-	private Cursus (String nm) {
-		naam = nm;
+	public Cursus (String cC, String vm) {
+		cursusCode = cC;
+		vaknaam = vm;
 	}
 
-	public void setNaam(String nm) {
-		naam = nm;
+	public String getcursusCode() {
+		return cursusCode;
 	}
-
-	public String getNaam() {
-		return naam;
+	
+	public String getvaknaam(){
+		return vaknaam;
 	}
 }

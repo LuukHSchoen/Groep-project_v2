@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import model.klas.Cursus;
 import model.klas.Klas;
 import model.persoon.Decaan;
 import model.persoon.Docent;
@@ -21,6 +22,7 @@ public class PrIS {
 	private ArrayList<Klas> deKlassen;
 	private ArrayList<Decaan> deDecaan;
 	private ArrayList<Management> hetManagement;
+	private ArrayList<Cursus> deCursussen;
 	
 	/**
 	 * De constructor maakt een set met standaard-data aan. Deze data
@@ -51,6 +53,7 @@ public class PrIS {
 		deKlassen = new ArrayList<Klas>();
 		deDecaan = new ArrayList<Decaan>();
 		hetManagement = new ArrayList<Management>();
+		deCursussen = new ArrayList<Cursus>();
 
 		// Inladen klassen
 		vulKlassen(deKlassen);
@@ -66,6 +69,9 @@ public class PrIS {
 		
 		// Inladen management
 		vulManagement(hetManagement);
+		
+		//Inladen curussen
+		vulCursussen(deCursussen);
 	
 	} //Einde Pris constructor
 	
@@ -302,6 +308,46 @@ public class PrIS {
 		pKlassen.add(k5);
 		pKlassen.add(k6);
 	}	
+	
+	private void vulCursussen(ArrayList<Cursus> pCursussen) {
+		
+		String csvFile = "././CSV/" + "vakken" + ".csv";
+		BufferedReader br = null;
+		String line = "";
+		String cvsSplitBy = ",";
+		
+		try {
+
+			br = new BufferedReader(new FileReader(csvFile));
+			
+			while ((line = br.readLine()) != null) {
+
+			    // use comma as separator
+				String[] element = line.split(cvsSplitBy);
+				String cursuscode = (element[0]);
+				String vaknaam = (element[1]);
+				Cursus lCursus = new Cursus(cursuscode,vaknaam);
+				pCursussen.add(lCursus);
+		
+			}
+		}
+
+		 catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+	}
+
+		
 	private void vulStudenten(
 			ArrayList<Student> pStudenten,
 			ArrayList<Klas> pKlassen) {
