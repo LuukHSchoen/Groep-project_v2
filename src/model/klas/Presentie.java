@@ -9,20 +9,39 @@ import model.persoon.Student;
 import server.Conversation;
 
 public class Presentie {
-	private ArrayList<Student> lStudentenVanKlas;
-	private Cursus deCursus;
-	private PrIS informatieSysteem;
+	private Student deStudent;
+	private Sessie deSessie;
+	private boolean present;
+	private String redenAbsentie;
 
-	public Presentie(PrIS infoSys) {
-		informatieSysteem = infoSys;
+	public Presentie(Student dSt, boolean pt) {
+		deStudent = dSt;
+		present = pt;
 	}
 	
-	public void ophalen(Conversation conversation) {
-		JsonObject lJsonObjectIn = (JsonObject) conversation.getRequestBodyAsJSON();
-		String lGebruikersnaam = lJsonObjectIn.getString("username");
-		Student lStudentZelf = informatieSysteem.getStudent(lGebruikersnaam);
-		Klas lKlas = informatieSysteem.getKlasVanStudent(lStudentZelf);
-		String lCursus = deCursus.getNaam();
+	public void setPresentieDoorDocent(boolean pt) {
+		present = pt;
+	}
+	//Voor de eerste Use Case
+	public void setPresentieDoorStudent(boolean pt, String re){
+		present = pt;
+		redenAbsentie = re;
+	}
+	
+	public boolean getPresentie(){
+		return present;
+	}
+	
+	public String getredenAbsentie(){
+		return redenAbsentie;
+	}
+	
+	public Student getStudent(){
+		return deStudent;
+	}
+	
+	public Sessie getSessie(){
+		return deSessie;
 	}
 }
 	

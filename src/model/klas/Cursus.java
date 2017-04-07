@@ -6,15 +6,15 @@ public class Cursus {
 	private String vaknaam;
 	
 	public Cursus (String cC, String vm) {
-		cursusCode = cC;
-		vaknaam = vm;
+		this.cursusCode = cC;
+		this.vaknaam = vm;
 	}
 
 	public String getcursusCode() {
-		return cursusCode;
+		return this.cursusCode;
 	}
 	
 	public String getvaknaam(){
-		return vaknaam;
+		return this.vaknaam;
 	}
 }

@@ -9,12 +9,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import model.klas.College;
 import model.klas.Cursus;
 import model.klas.Klas;
+import model.klas.Presentie;
 import model.persoon.Decaan;
 import model.persoon.Docent;
 import model.persoon.Management;
 import model.persoon.Student;
+import model.klas.Sessie;
 
 public class PrIS {
 	private ArrayList<Docent> deDocenten;
@@ -23,6 +26,9 @@ public class PrIS {
 	private ArrayList<Decaan> deDecaan;
 	private ArrayList<Management> hetManagement;
 	private ArrayList<Cursus> deCursussen;
+	private ArrayList<Sessie> deSessies;
+	private ArrayList<Presentie> dePresenties;
+	
 	
 	/**
 	 * De constructor maakt een set met standaard-data aan. Deze data
@@ -54,6 +60,7 @@ public class PrIS {
 		deDecaan = new ArrayList<Decaan>();
 		hetManagement = new ArrayList<Management>();
 		deCursussen = new ArrayList<Cursus>();
+		deSessies = new ArrayList<Sessie>();
 
 		// Inladen klassen
 		vulKlassen(deKlassen);
@@ -72,6 +79,9 @@ public class PrIS {
 		
 		//Inladen curussen
 		vulCursussen(deCursussen);
+		
+		//Inlanden Sessies
+		vulSessies(deSessies, deDocenten, deKlassen, deCursussen);
 	
 	} //Einde Pris constructor
 	
@@ -111,6 +121,16 @@ public class PrIS {
 				lDagStr;
 		return lString;
 	}
+	//Om een sessie te krijgen via een datum
+	public Sessie getSessieOpDatum(String dm){
+		for(Sessie pSessie : deSessies){
+			if (pSessie.getCollege().getDatum().equals(dm)){
+				return pSessie;
+			}
+		}
+		return null;
+	}
+	
 
 	public Docent getDocent(String gebruikersnaam) {
 		Docent resultaat = null;
@@ -130,6 +150,25 @@ public class PrIS {
 		for (Klas lKlas : deKlassen) {
 			if (lKlas.bevatStudent(pStudent)){
 				return (lKlas);
+			}
+		}
+		return null;
+	}
+	
+	
+	public Klas getKlasOpCode(String pKlascode){
+		for (Klas pklas : deKlassen){
+			if(pklas.getKlasCode().equals(pKlascode)){
+				return pklas;
+			}
+		}
+		return null;
+	}
+	
+	public Cursus getCursusOpCode(String pCursuscode){
+		for (Cursus pcursus : deCursussen){
+			if(pcursus.getcursusCode().equals(pCursuscode)){
+				return pcursus;
 			}
 		}
 		return null;
@@ -346,7 +385,65 @@ public class PrIS {
 			}
 		}	
 	}
+	
+	private void vulSessies(ArrayList<Sessie> dS, ArrayList<Docent> dD, ArrayList<Klas> dK, ArrayList<Cursus> dC){
+		//Vult de klasse Sessie, College en Presentie
+		ArrayList<Student> destudent = new ArrayList<Student>();
+		ArrayList<Presentie> depresentie = new ArrayList<Presentie>();
+		String csvFile = "././CSV/" + "rooster" + ".csv";
+		BufferedReader br = null;
+		String line = "";
+		String cvsSplitBy = ",";
+		
+		try {
 
+			br = new BufferedReader(new FileReader(csvFile));
+			
+			while ((line = br.readLine()) != null) {
+				String[] element = line.split(cvsSplitBy);
+				String datum = element[0];
+				String begintijd = element[1];
+				String eindtijd = element[2];
+				String vakcode = element[3];
+				String gebruikersnaam = element[4];
+				String klas = element[6];
+				
+				Klas deklas = getKlasOpCode(klas);
+				destudent = deklas.getStudenten();
+				
+				Docent dedocent = getDocent(gebruikersnaam);
+			
+				for (Student student : destudent){
+				depresentie.add(new Presentie(student, true));
+				}
+				
+				College deCollege = new College(datum,begintijd,eindtijd,depresentie);
+				
+				dS.add(new Sessie(deCollege, deklas, dedocent,getCursusOpCode(vakcode)));
+				
+				depresentie.clear();
+				
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+	}
+	
+
+				
+		
 		
 	private void vulStudenten(
 			ArrayList<Student> pStudenten,

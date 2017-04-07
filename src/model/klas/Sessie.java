@@ -1,13 +1,29 @@
 package model.klas;
 
-public class Sessie {
-private Cursus mijnCursus;
-private College mijnCollege;
+import model.persoon.Docent;
 
-public Cursus getMijnCursus() {
-	return mijnCursus;
+public class Sessie {
+private Klas deKlas;
+private College hetCollege;
+private Docent deDocent;
+private Cursus deCursus;
+
+public Sessie(College hC, Klas dK, Docent dD, Cursus dC){
+	hetCollege = hC;
+	deKlas = dK;
+	deDocent = dD;
+	deCursus = dC;
 }
-public College getMijnCollege() {
-	return mijnCollege;
+public Docent getDocent(){
+	return deDocent;
+}
+public Cursus getCursus(){
+	return deCursus;
+}
+public Klas getKlas(){
+	return deKlas;
+}
+public College getCollege(){
+	return hetCollege;
 }
 }
