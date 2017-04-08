@@ -106,23 +106,32 @@ public class PrIS {
 	
 	public static Calendar getEersteles() {
 		Date hoogste = null;
-		Calendar cal = null;
+		Calendar cal = Calendar.getInstance();
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String csvFile = "././CSV/" + "rooster" + ".csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
+		String SplitBy = "-";
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
 				String[] element = line.split(cvsSplitBy);
 				String tijd = (element[0]);
-				Date date = format.parse(tijd);
-				if (date.before(hoogste)){
+				
+				String[] newtijd = tijd.split(SplitBy);
+				String detijd = newtijd[0] + "-" + newtijd[1] + "-" + newtijd[2];
+				Date date = format.parse(detijd);
+				
+				if (hoogste == null){
 					hoogste = date;
 			}
+				else {
+					if (date.before(hoogste)){
+						hoogste = date;
+					}
+				}
 		}
-			cal = Calendar.getInstance();
 			cal.setTime(hoogste);
 		}
 
@@ -147,23 +156,30 @@ public class PrIS {
 	
 	public static Calendar geLaasteles() {
 		Date hoogste = null;
-		Calendar cal = null;
+		Calendar cal = Calendar.getInstance();
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String csvFile = "././CSV/" + "rooster" + ".csv";
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ",";
+		String SplitBy = "-";
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
 				String[] element = line.split(cvsSplitBy);
 				String tijd = (element[0]);
-				Date date = format.parse(tijd);
-				if (hoogste.before(date) || hoogste == null){
+				String[] newtijd = tijd.split(SplitBy);
+				String detijd = newtijd[0] + "-" + newtijd[1] + "-" + newtijd[2];
+				Date date = format.parse(detijd);
+				if (hoogste == null){
 					hoogste = date;
 			}
+				else {
+					if (hoogste.before(date)){
+						hoogste = date;
+					}
+				}
 		}
-			cal = Calendar.getInstance();
 			cal.setTime(hoogste);
 		}
 

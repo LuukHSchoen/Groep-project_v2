@@ -10,6 +10,7 @@ import server.Conversation;
 import server.Handler;
 
 public class SysteemDatumController implements Handler {
+	private PrIS informatieSysteem;
 	
 	/**
 	 * De SysteemDatumController klasse moet alle systeem (en test)-gerelateerde aanvragen
@@ -31,8 +32,8 @@ public class SysteemDatumController implements Handler {
   private void ophalenLesInfo(Conversation conversation) {
   	//<to do> begin
   	//De volgende statements moeten gewijzigd worden zodat daadwerkelijk de eerste en laatste lesdatum wordt bepaald
-  	Calendar lEersteLesDatum = Calendar.getInstance();
-		Calendar lLaatsteLesDatum = Calendar.getInstance();
+  	Calendar lEersteLesDatum = informatieSysteem.getEersteles();
+    Calendar lLaatsteLesDatum = informatieSysteem.geLaasteles();
     //<to do> end
 		
 		JsonObjectBuilder lJsonObjectBuilder = Json.createObjectBuilder();
