@@ -26,7 +26,8 @@ public class StudentGetSessieController implements Handler {
   private void collegeinfo(Conversation conversation) {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
   
-  	String lGebruikersnaam = lJsonObjIn.getString("username");	
+  	String lGebruikersnaam = lJsonObjIn.getString("username");
+  	String lDatum = lJsonObjIn.getString("datum");
   	
   	
   	// Array gemistencolleges = gekregen.functie(datum, gebruikersnaam)
