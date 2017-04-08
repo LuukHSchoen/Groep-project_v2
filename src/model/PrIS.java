@@ -145,8 +145,15 @@ public class PrIS {
 		}
 		return null;
 	}
-	
-
+	public ArrayList<Sessie> getSessieDocent(String gebruikersnaam, String dm) {
+		ArrayList<Sessie> getDocentSessies = new ArrayList<Sessie>();
+		for(Sessie pSessie : deSessies){
+			if (pSessie.getCollege().getDatum().equals(dm) && pSessie.getDocent().getGebruikersnaam().equals(gebruikersnaam)){
+				getDocentSessies.add(pSessie);
+			}
+		}
+		return null;	
+	}
 	public Docent getDocent(String gebruikersnaam) {
 		Docent resultaat = null;
 		
