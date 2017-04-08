@@ -323,7 +323,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     c_rol="[[_rol]]"
                     c_username="[[_username]]"> </my-absent>
                   </paper-material>
-                </section>    
+                </section>   
+                
+                 <section  name="my-absent-CollegeSelecteren" 
+                  title="ABSENT COLLEGESELECTEREN" 
+                  element="my-absent-CollegeSelecteren">
+                  <paper-material elevation="1">
+                    <my-absent-CollegeSelecteren 
+                    c_visible="[[_are_strings_equal(_ar_page, 'my-absent-CollegeSelecteren')]]"
+                    c_rol="[[_rol]]"
+                    c_username="[[_username]]"> </my-absent-CollegeSelecteren>
+                  </paper-material>
+                </section> 
                 
                 <section  name="my-presentiesinzien" 
                   title="PRESENTIES INZIEN" 
@@ -347,11 +358,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </paper-material>
                 </section> 
                  
-                 
-
-                
-
-
                 <section name="student_details" title="STUDENT DETAILS">
                   <paper-material elevation="1">
                     <h2 class="page-title">Student: [[_ar_subsubroute_data.subsubpage]]</h2>

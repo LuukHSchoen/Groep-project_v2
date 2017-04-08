@@ -227,7 +227,6 @@ public class PrIS {
 	//Om sessies te krijgen via een datum en een klas
 	public ArrayList<Sessie> getSessiesOpDatumEnKlas(String dm, String ks){
 		ArrayList<Sessie> getsessies = new ArrayList<Sessie>();
-		getsessies = null;
 		for(Sessie pSessie : deSessies){
 			if (pSessie.getCollege().getDatum().equals(dm) && pSessie.getKlas().getKlasCode().equals(ks)){
 				getsessies.add(pSessie);

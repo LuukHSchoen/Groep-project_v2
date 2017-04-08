@@ -54,9 +54,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <paper-button
       id="Sessies_vrager"
       on-click="submitForm"
-      raised>
-        Verzend waarde
+      raised> Verzend
     </paper-button>
+     <a href="#/my-absent-CollegeSelecteren">Verzend waarde</a>
+ 
 
     <iron-ajax
       id="ajax_sessiesinfo"
@@ -100,8 +101,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		},
 
 		 submitForm: function() {
-			 var rightNow = new Date();
-			 var res = rightNow.toISOString().slice(0,10);
+			 var res = sessionStorage.datum;
+			 alert(res)
 			 
 			 if (this.datum >= res) {				 
 				 if (this.type == "" || this.type == "undefined"|| this.datum == "") {
@@ -133,7 +134,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           _ophalen_sessiesinfo_response_handler: function(request) {
          	 	this.gebruiker = sessionStorage.username;
 	                console.log("_ophalen_sessiesinfo_response_handler username="+ this.gebruiker);
-	                this._c_sessies = request.detail.response;           
+	                this._c_sessies = request.detail.response;
+	                sessionStorage.studentsessie = this._c_sessies;
 	
 	              },
 		    

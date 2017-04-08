@@ -163,7 +163,9 @@
 
         _standaarddatumstring_to_lokaledatumstring(pStandaardDatum) {
          	var lApp = document.querySelector('my-app');
+         	sessionStorage.datum = this.systeemdatumstandaard;
          	return lApp.standaarddatumstring_to_lokaledatumstring(pStandaardDatum);
+         	
         }
       });
     })();
