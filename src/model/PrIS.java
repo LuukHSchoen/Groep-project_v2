@@ -149,7 +149,7 @@ public class PrIS {
 		ArrayList<Sessie> getDocentSessies = new ArrayList<Sessie>();
 		for(Sessie pSessie : deSessies){
 			if (pSessie.getCollege().getDatum().equals(dm) && pSessie.getDocent().getGebruikersnaam().equals(gebruikersnaam)){
-				getDocentSessies.add(pSessie);
+				getDocentSessies.add(pSessie);//hier moet nog iets
 			}
 		}
 		return null;	
