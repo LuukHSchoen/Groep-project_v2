@@ -35,7 +35,6 @@ public class StudentGetSessieController implements Handler {
   	String datum = lJsonObjIn.getString("datum");
   	String reden = lJsonObjIn.getString("reden");
   	
-  	
   	Klas deklas = informatieSysteem.getKlasVanStudent(informatieSysteem.getStudent(lGebruikersnaam));
   	ArrayList<Sessie> desessies = informatieSysteem.getSessiesOpDatumEnKlas(datum, deklas.getKlasCode());
   	
