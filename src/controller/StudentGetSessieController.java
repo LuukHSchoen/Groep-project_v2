@@ -18,7 +18,7 @@ public class StudentGetSessieController implements Handler {
 	}
 
 	public void handle(Conversation conversation) {
-	  if (conversation.getRequestedURI().startsWith("/my-absentCollegesKrijgen/collegeinfo")) {
+	  if (conversation.getRequestedURI().startsWith("/my-absent/sessiesinfo")) {
 			collegeinfo(conversation);
 		}
 	}
@@ -27,7 +27,9 @@ public class StudentGetSessieController implements Handler {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
   
   	String lGebruikersnaam = lJsonObjIn.getString("username");
-  	String lDatum = lJsonObjIn.getString("datum");
+  	String datum = lJsonObjIn.getString("datum");
+  
+  	
   	
   	
   	// Array gemistencolleges = gekregen.functie(datum, gebruikersnaam)
@@ -37,7 +39,7 @@ public class StudentGetSessieController implements Handler {
 		
 		lJsonObjectBuilder 
 		
-			.add("college", informatieSysteem.getStudent(lGebruikersnaam).getVolledigeAchternaam());
+			.add("test", informatieSysteem.getStudent(lGebruikersnaam).getVolledigeAchternaam());
 
 		String lJsonOut = lJsonObjectBuilder.build().toString();
 		

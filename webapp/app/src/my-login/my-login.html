@@ -162,7 +162,8 @@
             this.$.email_element.invalid = true;                // markeer email-element
             this.$.wachtwoord_element.invalid = true;           // markeer wachtwoord-element
 
-          } else {                                            // als aanloggen ok
+          } else {
+        	sessionStorage.username = this.username;
             this.$.email_element.invalid = false;               // verwijder fout markering
             this.$.wachtwoord_element.invalid = false;          // verwijder fout markering
             this._go_home();                                    // ga naar de home page.

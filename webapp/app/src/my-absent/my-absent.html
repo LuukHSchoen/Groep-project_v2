@@ -51,16 +51,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </paper-listbox>  
 
  <br>
-<paper-button raised on-click="submitForm">Verzend waarde</paper-button>
+  <paper-button
+      id="Sessies_vrager"
+      on-click="submitForm"
+      raised>
+        Verzend waarde
+    </paper-button>
 
-</template> 
+    <iron-ajax
+      id="ajax_sessiesinfo"
+      method="POST"
+      url="/my-absent/sessiesinfo"
+      handle-as="json"
+      on-response="_ophalen_sessiesinfo_response_handler">
+    </iron-ajax>
+</template>
+ 
 <script>
 (function() {
 'use strict';
+
 	Polymer({
 		is : 'my-absent',
+		
 		properties: {
 			college: {
+				type: String,
+			},
+			datum: {
+				type: Date,
+			},
+			datumString: {
 				type: String,
 			},
 			
@@ -74,11 +95,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	          
 	          c_visible: {
 	            type: Boolean,                                  
-	            value: false,
-	            observer: '_ophalen_collegeinfo_request_handler',                                                      
+	            value: false,                                                     
 	          },
 		},
-		    
+
 		 submitForm: function() {
 			 var rightNow = new Date();
 			 var res = rightNow.toISOString().slice(0,10);
@@ -87,15 +107,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				 if (this.type == "" || this.type == "undefined"|| this.datum == "") {
 						alert('Ongeldige invoer');
 					} else {
+						 this.gebruiker = sessionStorage.username;
+						 this.datumString = this.datum.toString();
+			             console.log("_ophalen_sessiesinfo_request_handler username= " + this.gebruiker + this.datum);
+			               this.$.ajax_sessiesinfo.contentType="application/json";
+			               this.$.ajax_sessiesinfo.body={
+			                "username":this.gebruiker,
+			                "datum":this.datumString
+			               };
+			               console.log("test")
+			           
+			               this.$.ajax_sessiesinfo.generateRequest();
+			               
+			               console.log("test2")
+			          
 						alert('Je bent absent gemeld op ' + this.datum + ' met reden: ' + this.type + '.');
 					}
 			 }else {
 				 alert('De ingevulde datum is niet correct.');
 			 }
+            
+	      },
 			
-			
-	                     
-	      }			
+          _ophalen_sessiesinfo_response_handler: function(request) {
+         	 	this.gebruiker = sessionStorage.username;
+	                console.log("_ophalen_sessiesinfo_response_handler username="+ this.gebruiker);
+	                this.test = request.detail.response.test;
+	                  alert(this.test);             
+	
+	              },
+		    
+	      
+		 
     });
 })();
 </script> </dom-module>
