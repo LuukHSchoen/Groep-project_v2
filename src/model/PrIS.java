@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import model.klas.College;
 import model.klas.Cursus;
@@ -101,6 +103,89 @@ public class PrIS {
 		}
 		return lCal;
 	}
+	
+	public static Calendar getEersteles() {
+		Date hoogste = null;
+		Calendar cal = null;
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String csvFile = "././CSV/" + "rooster" + ".csv";
+		BufferedReader br = null;
+		String line = "";
+		String cvsSplitBy = ",";
+		try {
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+				String[] element = line.split(cvsSplitBy);
+				String tijd = (element[0]);
+				Date date = format.parse(tijd);
+				if (date.before(hoogste)){
+					hoogste = date;
+			}
+		}
+			cal = Calendar.getInstance();
+			cal.setTime(hoogste);
+		}
+
+		 catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return cal;
+	}
+	
+	public static Calendar geLaasteles() {
+		Date hoogste = null;
+		Calendar cal = null;
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String csvFile = "././CSV/" + "rooster" + ".csv";
+		BufferedReader br = null;
+		String line = "";
+		String cvsSplitBy = ",";
+		try {
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+				String[] element = line.split(cvsSplitBy);
+				String tijd = (element[0]);
+				Date date = format.parse(tijd);
+				if (hoogste.before(date) || hoogste == null){
+					hoogste = date;
+			}
+		}
+			cal = Calendar.getInstance();
+			cal.setTime(hoogste);
+		}
+
+		 catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return cal;
+	}
+
 	//deze method is static onderdeel van PrIS omdat hij als hulp methode 
 	//in veel controllers gebruikt wordt
 	//een standaardDatumString heeft formaat YYYY-MM-DD
