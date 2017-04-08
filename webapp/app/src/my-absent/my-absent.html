@@ -132,8 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           _ophalen_sessiesinfo_response_handler: function(request) {
          	 	this.gebruiker = sessionStorage.username;
 	                console.log("_ophalen_sessiesinfo_response_handler username="+ this.gebruiker);
-	                this.test = request.detail.response.test;
-	                  alert(this.test);             
+	                this._c_sessies = request.detail.response;           
 	
 	              },
 		    
