@@ -28,12 +28,12 @@ public class StudentGetSessieController implements Handler {
 		}
 	}
 	
-	
   private void sessiesinfo(Conversation conversation) {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
   
   	String lGebruikersnaam = lJsonObjIn.getString("username");
   	String datum = lJsonObjIn.getString("datum");
+  	String reden = lJsonObjIn.getString("reden");
   	
   	Klas deklas = informatieSysteem.getKlasVanStudent(informatieSysteem.getStudent(lGebruikersnaam));
   	ArrayList<Sessie> desessies = informatieSysteem.getSessiesOpDatumEnKlas(datum, deklas.getKlasCode());
