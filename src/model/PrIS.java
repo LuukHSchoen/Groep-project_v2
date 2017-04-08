@@ -30,6 +30,8 @@ public class PrIS {
 	private ArrayList<Presentie> dePresenties;
 	
 	
+
+	
 	/**
 	 * De constructor maakt een set met standaard-data aan. Deze data
 	 * moet nog uitgebreidt worden met rooster gegevens die uit een bestand worden
@@ -121,10 +123,23 @@ public class PrIS {
 				lDagStr;
 		return lString;
 	}
-	//Om een sessie te krijgen via een datum
-	public Sessie getSessiesOpDatumEnKlas(String dm, String ks){
+	//Om sessies te krijgen via een datum en een klas
+	public ArrayList<Sessie> getSessiesOpDatumEnKlas(String dm, String ks){
+		ArrayList<Sessie> getsessies = new ArrayList<Sessie>();
+		getsessies = null;
 		for(Sessie pSessie : deSessies){
 			if (pSessie.getCollege().getDatum().equals(dm) && pSessie.getKlas().getKlasCode().equals(ks)){
+				getsessies.add(pSessie);
+			}
+		}
+		return getsessies;
+		
+	}
+	
+	//Om een sessie te krijgen via datum, tijd en klas;
+	public Sessie getSessieOpDatumEnKlasEntijd (String dm, String ks, String tijd){
+		for(Sessie pSessie : deSessies){
+			if (pSessie.getCollege().getDatum().equals(dm) && pSessie.getKlas().getKlasCode().equals(ks) && pSessie.getCollege().getBeginEnEindTijd().equals(tijd)){
 				return pSessie;
 			}
 		}

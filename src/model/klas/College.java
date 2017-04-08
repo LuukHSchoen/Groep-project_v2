@@ -19,7 +19,7 @@ public class College {
 	}
 	
 	public String getBeginEnEindTijd(){
-		return ("Van: " + begintijd + " tot: " + eindtijd);
+		return (begintijd + "-" + eindtijd);
 	}
 	
 	//De studenten van de Sessie
