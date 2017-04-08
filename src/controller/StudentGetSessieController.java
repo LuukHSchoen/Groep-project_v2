@@ -28,6 +28,7 @@ public class StudentGetSessieController implements Handler {
 		}
 	}
 	
+	
   private void sessiesinfo(Conversation conversation) {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
   
