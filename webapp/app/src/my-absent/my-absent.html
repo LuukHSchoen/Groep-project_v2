@@ -55,13 +55,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 </template> 
 <script>
+(function() {
+'use strict';
 	Polymer({
-		is : 'my-absent',			
+		is : 'my-absent',
+		properties: {
+			college: {
+				type: String,
+			},
+			
+			gebruiker: {
+				type: String,
+			},
+		
+	          _c_collegeinfo: {
+	            type: Object,                   
+	          },
+	          
+	          c_visible: {
+	            type: Boolean,                                  
+	            value: false,
+	            observer: '_ophalen_collegeinfo_request_handler',                                                      
+	          },
+		},
 		    
 		 submitForm: function() {
 			 var rightNow = new Date();
 			 var res = rightNow.toISOString().slice(0,10);
-			 res.setHours(0,0,0,0);
 			 
 			 if (this.datum >= res) {				 
 				 if (this.type == "" || this.type == "undefined"|| this.datum == "") {
@@ -76,7 +96,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			
 	                     
 	      }			
-		
-	});
+    });
+})();
 </script> </dom-module>
 
