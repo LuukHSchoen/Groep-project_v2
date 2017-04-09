@@ -36,6 +36,7 @@ public class Application {
 		MedestudentenController medestudentenController = new MedestudentenController(infoSysteem);
 		StudentGetSessieController studentgetsessiecontroller = new StudentGetSessieController(infoSysteem);
 		DocentGetStudentenController docentgetstudentencontroller = new DocentGetStudentenController(infoSysteem);
+		PresentieAanpassenController presentiesaanpassencontroller = new PresentieAanpassenController(infoSysteem);
 		
 		server.registerHandler("/systeemdatum/lesinfo", systeemDatumController);
 
