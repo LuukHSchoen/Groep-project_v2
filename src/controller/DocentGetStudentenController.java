@@ -25,10 +25,18 @@ public class DocentGetStudentenController implements Handler {
 	
 	
 	public void handle(Conversation conversation) {
-		  if (conversation.getRequestedURI().startsWith("/my-presentieInvoeren/sessiesinfo")) {
-				sessiesinfo(conversation);
+		  if (conversation.getRequestedURI().startsWith("/my-presentieInvoeren/ophalen")) {
+				collegeophalen(conversation);
 			}
 		}
 	
-
+	private void collegeophalen(Conversation conversation) {
+		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
+		
+		String lGebruikersnaam = lJsonObjIn.getString("username");
+	  	String datum = lJsonObjIn.getString("datum");
+		
+		
+		
+	}
 }
