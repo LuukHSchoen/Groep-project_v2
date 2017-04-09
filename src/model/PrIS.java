@@ -117,7 +117,7 @@ public class PrIS {
 					if (pSessie.getCollege().getDatum().equals(dat) && pSessie.getKlas().equals(getKlasVanStudent(deStud))){
 						studentPresenties.add(depresentie);
 				}
-			}
+				}
 		}
 		return studentPresenties;
 	}
