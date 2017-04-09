@@ -140,7 +140,7 @@ public class PrIS {
 				
 				String[] newtijd = tijd.split(SplitBy);
 				String detijd = newtijd[0] + "-" + newtijd[1] + "-" + newtijd[2];
-				Date date = format.parse(detijd);
+				Date date = format.parse(detijd); 
 				
 				if (hoogste == null){
 					hoogste = date;
@@ -264,16 +264,29 @@ public class PrIS {
 		}
 		return null;
 	}
-	public ArrayList<Sessie> getSessieDocent(String gebruikersnaam, String dm) {
+	public ArrayList<Sessie> getSessieDocent(String gebruikersnaam, String dm, Sessie cC, Sessie ks, Sessie tijd) {
 		ArrayList<Sessie> getDocentSessies = new ArrayList<Sessie>();
 		for(Sessie pSessie : deSessies){
 			if (pSessie.getCollege().getDatum().equals(dm) && pSessie.getDocent().getGebruikersnaam().equals(gebruikersnaam)){
-				getDocentSessies.add(pSessie);//hier moet nog iets
+				getDocentSessies.add(cC);
+				getDocentSessies.add(ks);
+				getDocentSessies.add(tijd);
 			}
 		}
-		return null;	
+		return getDocentSessies;	
 	}
-	public Docent getDocent(String gebruikersnaam) {
+	
+	public ArrayList<Presentie> getDocentKlass(String cC, String ks, String tijd, Student deStud){
+		ArrayList<Presentie> Presenties = new ArrayList<Presentie>();
+		for(Sessie pSessie: deSessies){
+			if (pSessie.getCursus().getcursusCode().equals(cC) && pSessie.getKlas().getKlasCode().equals(ks) && pSessie.getCollege().getBeginEnEindTijd().equals(tijd)){
+				Presentie p = new Presentie(deStud);
+				Presenties.add(p);
+			}
+		}
+		return Presenties;
+	}
+		public Docent getDocent(String gebruikersnaam) {
 		Docent resultaat = null;
 		
 		for (Docent d : deDocenten) {
