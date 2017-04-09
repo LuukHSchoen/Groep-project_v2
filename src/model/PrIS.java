@@ -147,6 +147,7 @@ public class PrIS {
 	}
 	
 	public ArrayList<Presentie> docentPresentieInzien(String dat, String kCode){
+		
 		ArrayList<Presentie> presentieLijst = new ArrayList<Presentie>();
 		for (Sessie ses : deSessies){
 			for (Presentie depresentie : ses.getCollege().getdePresentie())	{
