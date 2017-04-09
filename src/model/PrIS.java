@@ -122,6 +122,18 @@ public class PrIS {
 	
 	}
 	
+	public int aantalAbsenties(String dat, Student deStud){
+		int teller = 0;
+		for (Presentie p : studentPresentieInzien(dat, deStud)){
+			if (p.getPresentie() == true){
+				teller +=1;
+			}
+		}
+		return teller;
+		
+		
+	}
+	
 	
 	public static Calendar getEersteles() {
 		Date hoogste = null;
