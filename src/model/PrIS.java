@@ -123,7 +123,7 @@ public class PrIS {
 		return studentPresenties;
 	}
 	
-	public int aantalAbsenties(String dat, Student deStud){
+	public int aantalAbsentiesStud(String dat, Student deStud){
 		int teller = 0;
 		for (Presentie p : studentPresentieInzien(dat, deStud)){
 			if (p.getPresentie() == true){
@@ -160,6 +160,26 @@ public class PrIS {
 			}
 		}
 		return presentieLijst;
+	}
+	
+	public int aantalAbsentiesKlas(String dat, Klas kl, String begEindTijd){
+		int teller = 0;
+		for (Presentie p : docentPresentieInzien(dat, kl.getKlasCode(), begEindTijd)){
+			if (p.getPresentie() == true){
+				teller +=1;
+			}
+		}
+		return teller;
+	}
+	
+	public int aantalPresentKlas(String dat, Klas kl, String begEindTijd){
+		int teller = 0;
+		for (Presentie p : docentPresentieInzien(dat, kl.getKlasCode(), begEindTijd)){
+			if (p.getPresentie() == false){
+				teller +=1;
+			}
+		}
+		return teller;
 	}
 	
 	public static Calendar getEersteles() {
