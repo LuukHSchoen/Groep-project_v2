@@ -39,11 +39,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-item>Voornaam: {{item.first}} , achternaam: {{item.last}}</paper-item>       
     </template>
   </paper-listbox> 
+  
+  <paper-button
+      id="Sessies_vrager"
+      on-click="_college_ophalen_response_handler"
+      raised> test
+    </paper-button>
  
   <iron-ajax
-      id="ajax_colleges_ophalen"
+      id="ajax_college_ophalen"
       method="POST"
-      url="/student/medestudenten/ophalen"
+      url="/my-presentiesInvoeren/ophalen"
       handle-as="json"
       on-response="_college_ophalen_response_handler">
     </iron-ajax>
@@ -56,6 +62,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 	Polymer({
 		is : 'my-presentiesInvoeren',
+		
+		_college_ophalen_request_handler: function() {	
+			  console.log("test32")
+	          this.$.ajax_college_ophalen.contentType="application/json";
+	          this.$.ajax_college_ophalen.body={
+	            "username":this.c_username
+	          };
+	          this.$.ajax_college_ophalen.generateRequest();
+	        },
+	        
+	        _college_ophalen_response_handler: function(request) {
+	        	console.log(this.c_username)
+	            this._c_studenten = request.detail.response;
+	          },
 		
 		 ready: function() {
 		        this.employees = [

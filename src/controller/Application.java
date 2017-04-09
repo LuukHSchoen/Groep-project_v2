@@ -34,7 +34,7 @@ public class Application {
 		SysteemDatumController systeemDatumController = new SysteemDatumController(infoSysteem);
 		LoginController loginController = new LoginController(infoSysteem);
 		MedestudentenController medestudentenController = new MedestudentenController(infoSysteem);
-		StudentGetSessieController studentgetsessiecontroller = new StudentGetSessieController(infoSysteem);		
+		StudentGetSessieController studentgetsessiecontroller = new StudentGetSessieController(infoSysteem);
 		
 		server.registerHandler("/systeemdatum/lesinfo", systeemDatumController);
 
