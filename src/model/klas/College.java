@@ -22,6 +22,10 @@ public class College {
 		return (begintijd + "-" + eindtijd);
 	}
 	
+	public ArrayList<Presentie> getdePresentie(){
+		return deAanwezige;
+	}
+	
 	//De studenten van de Sessie
 	public void setdeAanwezige (ArrayList<Presentie> dA){
 		deAanwezige = dA;
