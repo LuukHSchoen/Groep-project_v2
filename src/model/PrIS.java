@@ -300,12 +300,13 @@ public class PrIS {
 		return getDocentSessies;	
 	}
 	
-	public ArrayList<Presentie> getDocentKlass(String cC, String ks, String tijd, Student deStud){
-		ArrayList<Presentie> Presenties = new ArrayList<Presentie>();
+	public ArrayList<Student> getDocentKlass(String cC, String ks, String tijd, Student deStud){
+		ArrayList<Student> Presenties = new ArrayList<Student>();
 		for(Sessie pSessie: deSessies){
-			if (pSessie.getCursus().getcursusCode().equals(cC) && pSessie.getKlas().getKlasCode().equals(ks) && pSessie.getCollege().getBeginEnEindTijd().equals(tijd)){
-				Presentie pr = new Presentie(deStud);
-				Presenties.add(pr);
+			for (Student deKlas : pSessie.getKlas().getStudenten())	{
+				if (pSessie.getCursus().getcursusCode().equals(cC) && pSessie.getKlas().getKlasCode().equals(ks) && pSessie.getCollege().getBeginEnEindTijd().equals(tijd)){
+					Presenties.add(deKlas);
+			}
 			}
 		}
 		return Presenties;
