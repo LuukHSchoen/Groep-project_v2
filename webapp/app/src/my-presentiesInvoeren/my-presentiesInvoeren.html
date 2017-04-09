@@ -40,11 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </paper-listbox> 
   
-  <paper-button
-      id="Sessies_vrager"
-      on-click="_college_ophalen_response_handler"
-      raised> test
-    </paper-button>
+
  
   <iron-ajax
       id="ajax_college_ophalen"
@@ -63,22 +59,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	Polymer({
 		is : 'my-presentiesInvoeren',
 		
+		
+		
+		c_visible: {
+            type: Boolean,                                      /* true when element is the active visible item */
+            value: false,
+            observer: '_ophalen_sessies_request_handler', 
+            
+            gebruiker: {
+          	  type : String,
+            },
+            datumString: {
+          	  type : String,
+            },
+            _c_colleges: {
+                type: Array,           /* array<student-info>: student-info = {id, firstName, lastName, sameGroup}						array is constant groepnr is changable */
+              },
+            
+            
+		
 		_college_ophalen_request_handler: function() {	
-			  console.log("test32")
-	          this.$.ajax_college_ophalen.contentType="application/json";
-	          this.$.ajax_college_ophalen.body={
-	            "username":this.c_username
-	          };
-	          this.$.ajax_college_ophalen.generateRequest();
-	        },
+			if (this.c_visible) {
+				this.datumString = sessionStorage.datum;
+			  	this.gebruiker = sessionStorage.username;
+			  	
+			    this.$.ajax_college_ophalen.contentType="application/json";
+		          this.$.ajax_college_ophalen.body={
+		            "username":this.c_gebruiker
+		            "datum":this.datumString,
+		          };
+		          this.$.ajax_college_ophalen.generateRequest();
+		        },
+				
+			},			
+			
+	        
 	        
 	        _college_ophalen_response_handler: function(request) {
 	        	console.log(this.c_username)
-	            this._c_studenten = request.detail.response;
+	        	this._c_colleges = request.detail.response;	            
 	          },
 		
 		 ready: function() {
 		        this.employees = [
+		        	//Hier moet output van alle klas codes komen
 		            {first: 'Bob', last: 'Smith'},
 		            {first: 'Sally', last: 'Johnson'},		           
 		        ];

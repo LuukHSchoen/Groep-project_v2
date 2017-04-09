@@ -69,6 +69,7 @@ public class PrIS {
 		deKlassen = new ArrayList<Klas>();
 		deDecaan = new ArrayList<Decaan>();
 		hetManagement = new ArrayList<Management>();
+		
 		deCursussen = new ArrayList<Cursus>();
 		deSessies = new ArrayList<Sessie>();
 
@@ -113,13 +114,25 @@ public class PrIS {
 	public ArrayList<Presentie> studentPresentieInzien(String dat, Student deStud){
 		ArrayList<Presentie> studentPresenties = new ArrayList<Presentie>();
 		for(Sessie pSessie: deSessies){
-			if (pSessie.getCollege().getDatum() == dat){
-				Presentie p = new Presentie(deStud);
-				studentPresenties.add(p);		
-			}
+				for (Presentie depresentie : pSessie.getCollege().getdePresentie())	{
+					if (pSessie.getCollege().getDatum().equals(dat) && pSessie.getKlas().equals(getKlasVanStudent(deStud))){
+						studentPresenties.add(depresentie);
+				}
+				}
 		}
 		return studentPresenties;
+	}
 	
+	public int aantalAbsenties(String dat, Student deStud){
+		int teller = 0;
+		for (Presentie p : studentPresentieInzien(dat, deStud)){
+			if (p.getPresentie() == true){
+				teller +=1;
+			}
+		}
+		return teller;
+		
+		
 	}
 	
 	
