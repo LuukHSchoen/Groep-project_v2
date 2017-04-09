@@ -40,11 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </paper-listbox> 
   
-  <paper-button
-      id="Sessies_vrager"
-      on-click="_college_ophalen_response_handler"
-      raised> test
-    </paper-button>
+
  
   <iron-ajax
       id="ajax_college_ophalen"
@@ -84,14 +80,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			  	
 			    this.$.ajax_college_ophalen.contentType="application/json";
 		          this.$.ajax_college_ophalen.body={
-		            "username":this.c_username
+		            "username":this.c_gebruiker
 		            "datum":this.datumString,
 		          };
 		          this.$.ajax_college_ophalen.generateRequest();
 		        },
 				
-			}
-			
+			},			
 			
 	        
 	        
