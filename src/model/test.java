@@ -32,9 +32,18 @@ public class test {
 				}
 					
 			
-			System.out.println("uitgaand");					
-			}
-			
+			System.out.println(aanwezig);					
+		
+			String als = "";
+		  	for(Sessie getsessie : desessies){
+				for (Presentie depresentie : getsessie.getCollege().getdePresentie()){
+					if (depresentie.getStudent().equals(infoSysteem.getStudent(lGebruikersnaam))){
+						als = depresentie.getStudent().getGebruikersnaam();
+					}
+				}
+				System.out.println(als);
+		  	}
+			System.out.println(als);
 					// terugsturen naar de Polymer-GUI!	}
 
 	
@@ -42,6 +51,7 @@ public class test {
 
 		
 		}
+}
 		
 		
 	

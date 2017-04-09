@@ -79,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </table>
       <paper-button
       id="Sessies_vrager"
-      on-click="_opslaan_sessiesinfo_request_handler"
+      on-click="_opslaan_sessiesopslaan_request_handler"
       raised> Absenties verwerken
     </paper-button>
 
@@ -165,16 +165,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       _opslaan_sessiesopslaan_request_handler: function() {
     	  this.gebruiker = sessionStorage.username;
-    	  this.datum = sessionStorage.datumabsentie;
+    	  this.datumString = sessionStorage.datumabsentie;
     	  this.reden = sessionStorage.reden;
     	  
-    	    console.log("_opslaan_sessiesinfo_request_handler " + this.gebruiker + this.datumstring + this.reden);
+    	    console.log("_opslaan_sessiesinfo_request_handler " + this.gebruiker + this.datumString + this.reden);
     	      this.$.ajax_sessiesopslaan.contentType="application/json";
     	      this.$.ajax_sessiesopslaan.body={
     	              "colleges":this._c_sessies,
     	              "username":this.gebruiker,
     	              "datum":this.datumString,
-    	              "reden":this.aanwezig
+    	              "reden":this.reden,
     	      };
     	      console.log("test3")
     	  
@@ -184,7 +184,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     	    },
     	    
     	  _opslaan_sessiesopslaan_response_handler: function(request) {
-          console.log(request.detail.response.absent);         
+          console.log(request.detail.response.aanwezig);         
           this._go_home();		/* verlaat de pagina en ga terug naar home page */
         },
         

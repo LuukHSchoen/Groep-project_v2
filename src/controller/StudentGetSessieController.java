@@ -46,7 +46,7 @@ public class StudentGetSessieController implements Handler {
 	  	if (arraysessies != null) { 
 	    	for (int i=0;i<arraysessies.size();i++){
 	    		JsonObject sessie = arraysessies.getJsonObject(i);
-	    		boolean absent = sessie.getBoolean("absent");
+	    		boolean absent = sessie.getBoolean("aanwezig");
 	    		if (absent == false) {
 	    			for(Sessie getsessie : desessies){
 	    				for (Presentie depresentie : getsessie.getCollege().getdePresentie()){
@@ -58,24 +58,25 @@ public class StudentGetSessieController implements Handler {
 	    		}
 	    	}
 	  	}
-	  	String als = "";
+	  	boolean als = true;
 	  	for(Sessie getsessie : desessies){
 			for (Presentie depresentie : getsessie.getCollege().getdePresentie()){
 				if (depresentie.getStudent().equals(informatieSysteem.getStudent(lGebruikersnaam))){
-					als = depresentie.getStudent().getGebruikersnaam();
+					als = depresentie.getPresentie();
 				}
 			}
 	  	}
 		JsonObjectBuilder lJsonObjectBuilder2 = Json.createObjectBuilder();
-		lJsonObjectBuilder2.add("absent", als);																	// en teruggekregen gebruikersrol als JSON-object...
+		lJsonObjectBuilder2.add("aanwezig", als);																	// en teruggekregen gebruikersrol als JSON-object...
 		String lJsonOut = lJsonObjectBuilder2.build().toString();
+		conversation.sendJSONMessage(lJsonOut);
 	}
 	  	
 	
   private void sessiesinfo(Conversation conversation) {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		
-  
+	boolean aanwezig = true;
   	String lGebruikersnaam = lJsonObjIn.getString("username");
   	String datum = lJsonObjIn.getString("datum");
   	
@@ -93,7 +94,9 @@ public class StudentGetSessieController implements Handler {
 		for (Sessie deSessie : desessies) {
 				for (Presentie depresentie : deSessie.getCollege().getdePresentie()){
 					if (depresentie.getStudent().equals(informatieSysteem.getStudent(lGebruikersnaam))){
-						boolean aanwezig = depresentie.getPresentie();
+						aanwezig = depresentie.getPresentie();
+					}
+				}
 		
 				String cursuscode = deSessie.getCursus().getcursusCode();
 				String begineneindtijd = deSessie.getCollege().getBeginEnEindTijd();
@@ -105,8 +108,7 @@ public class StudentGetSessieController implements Handler {
 				
 			  lJsonArrayBuilder.add(lJsonObjectBuildergeminstesessie);													//voeg het JsonObject aan het array toe				     
 			}
-				}
-		}
+				
 		String lJsonOutGemisteSessie = lJsonArrayBuilder.build().toString();												// maak er een string van
 		conversation.sendJSONMessage(lJsonOutGemisteSessie);					
 		}
