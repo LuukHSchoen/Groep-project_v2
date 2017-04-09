@@ -63,13 +63,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	Polymer({
 		is : 'my-presentiesInvoeren',
 		
-		_college_ophalen_request_handler: function() {				 
-	          this.$.ajax_college_ophalen.contentType="application/json";
-	          this.$.ajax_college_ophalen.body={
-	            "username":this.c_username
-	          };
-	          this.$.ajax_college_ophalen.generateRequest();
-	        },
+		c_visible: {
+            type: Boolean,                                      /* true when element is the active visible item */
+            value: false,
+            observer: '_ophalen_sessies_request_handler', 
+            
+            gebruiker: {
+          	  type : String,
+            },
+            datumString: {
+          	  type : String,
+            },
+            
+            
+		
+		_college_ophalen_request_handler: function() {	
+			if (this.c_visible) {
+				this.datumString = sessionStorage.datumabsentie;
+			  	this.gebruiker = sessionStorage.username;
+			  	
+			    this.$.ajax_college_ophalen.contentType="application/json";
+		          this.$.ajax_college_ophalen.body={
+		            "username":this.c_username
+		            "datum":this.datumString,
+		          };
+		          this.$.ajax_college_ophalen.generateRequest();
+		        },
+				
+			}
+			
+			
+	        
 	        
 	        _college_ophalen_response_handler: function(request) {
 	        	console.log(this.c_username)
