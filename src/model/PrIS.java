@@ -146,6 +146,17 @@ public class PrIS {
 		return klassenLijst;
 	}
 	
+	public ArrayList<Presentie> docentPresentieInzien(String dat, String kCode){
+		ArrayList<Presentie> presentieLijst = new ArrayList<Presentie>();
+		for (Sessie ses : deSessies){
+			for (Presentie depresentie : ses.getCollege().getdePresentie())	{
+				if (ses.getKlas().equals(kCode) && ses.getCollege().getDatum().equals(dat)){
+					presentieLijst.add(depresentie);
+				}
+			}
+		}
+		return presentieLijst;
+	}
 	
 	public static Calendar getEersteles() {
 		Date hoogste = null;
