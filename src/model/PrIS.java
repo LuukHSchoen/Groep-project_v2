@@ -22,6 +22,11 @@ import model.persoon.Docent;
 import model.persoon.Management;
 import model.persoon.Student;
 
+
+
+import model.klas.Sessie;
+//test
+
 public class PrIS {
 	private ArrayList<Docent> deDocenten;
 	private ArrayList<Student> deStudenten;
@@ -524,8 +529,7 @@ public class PrIS {
 	
 	private void vulSessies(ArrayList<Sessie> dS, ArrayList<Docent> dD, ArrayList<Klas> dK, ArrayList<Cursus> dC){
 		//Vult de klasse Sessie, College en Presentie
-		ArrayList<Student> destudent = new ArrayList<Student>();
-		ArrayList<Presentie> depresentie = new ArrayList<Presentie>();
+
 		String csvFile = "././CSV/" + "rooster" + ".csv";
 		BufferedReader br = null;
 		String line = "";
@@ -534,8 +538,11 @@ public class PrIS {
 		try {
 
 			br = new BufferedReader(new FileReader(csvFile));
-			
 			while ((line = br.readLine()) != null) {
+				ArrayList<Student> destudent = new ArrayList<Student>();
+				ArrayList<Presentie> depresentie = new ArrayList<Presentie>();
+				Klas deklas = null;
+				
 				String[] element = line.split(cvsSplitBy);
 				String datum = element[0];
 				String begintijd = element[1];
@@ -544,7 +551,12 @@ public class PrIS {
 				String gebruikersnaam = element[4];
 				String klas = element[6];
 				
-				Klas deklas = getKlasOpCode(klas);
+				for (Klas degoedeklas : deKlassen){
+					if (degoedeklas.getKlasCode().equals(klas)){
+						deklas = degoedeklas;
+				}
+				}
+				 
 				destudent = deklas.getStudenten();
 				
 				Docent dedocent = getDocent(gebruikersnaam);
@@ -554,10 +566,10 @@ public class PrIS {
 				}
 				
 				College deCollege = new College(datum,begintijd,eindtijd,depresentie);
-				
 				dS.add(new Sessie(deCollege, deklas, dedocent,getCursusOpCode(vakcode)));
 				
-				depresentie.clear();
+				
+
 				
 
 			}
