@@ -59,6 +59,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	Polymer({
 		is : 'my-presentiesInvoeren',
 		
+		
+		
 		c_visible: {
             type: Boolean,                                      /* true when element is the active visible item */
             value: false,
@@ -70,6 +72,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             datumString: {
           	  type : String,
             },
+            _c_colleges: {
+                type: Array,           /* array<student-info>: student-info = {id, firstName, lastName, sameGroup}						array is constant groepnr is changable */
+              },
             
             
 		
@@ -92,7 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	        
 	        _college_ophalen_response_handler: function(request) {
 	        	console.log(this.c_username)
-	            this._c_studenten = request.detail.response;
+	        	this._c_colleges = request.detail.response;	            
 	          },
 		
 		 ready: function() {
