@@ -69,6 +69,7 @@ public class PrIS {
 		deKlassen = new ArrayList<Klas>();
 		deDecaan = new ArrayList<Decaan>();
 		hetManagement = new ArrayList<Management>();
+		
 		deCursussen = new ArrayList<Cursus>();
 		deSessies = new ArrayList<Sessie>();
 
