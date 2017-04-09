@@ -537,7 +537,7 @@ public class PrIS {
 						deklas = degoedeklas;
 				}
 				}
-				
+				 
 				destudent = deklas.getStudenten();
 				
 				Docent dedocent = getDocent(gebruikersnaam);
