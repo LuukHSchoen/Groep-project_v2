@@ -142,6 +142,7 @@ public class PrIS {
 				klassenLijst.add(ses.getKlas().getNaam());
 			}
 		}
+		
 		return klassenLijst;
 	}
 	
