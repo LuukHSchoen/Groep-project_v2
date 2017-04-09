@@ -153,7 +153,7 @@
         
         _initializing : function() {
           if (this.c_visible) {                                 // zodra zichtbaar geworden moet er wat worden gedaan
-            if (this.c_rol=="student") {                        // voor studenten
+            if (this.c_rol=="docent") {                        // voor studenten
               this._medestudenten_ophalen_request_handler();    //    haal info op van server
             } else {                                            // na handmatige url wijziging zonder login
               var lToast = this.$.toast_invalid_aanroep;        // meldt ongeldige aanroep
@@ -177,6 +177,15 @@
           this._c_studenten = request.detail.response;
         },
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
         _medestudenten_opslaan_request_handler: function() {
           console.log("_medestudenten_opslaan_request_handler user="+this.c_username);
           this.$.ajax_medestudenten_opslaan.contentType="application/json";
