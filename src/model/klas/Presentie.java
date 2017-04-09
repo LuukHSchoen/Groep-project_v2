@@ -13,7 +13,11 @@ public class Presentie {
 	private Sessie deSessie;
 	private boolean present;
 	private String redenAbsentie;
-
+	
+	public Presentie(Student dSt){
+		deStudent = dSt;
+	}
+	
 	public Presentie(Student dSt, boolean pt) {
 		deStudent = dSt;
 		present = pt;

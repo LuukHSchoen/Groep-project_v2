@@ -1,6 +1,7 @@
 package model;
 
 import java.io.BufferedReader;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,12 +16,17 @@ import model.klas.College;
 import model.klas.Cursus;
 import model.klas.Klas;
 import model.klas.Presentie;
+import model.klas.Sessie;
 import model.persoon.Decaan;
 import model.persoon.Docent;
 import model.persoon.Management;
 import model.persoon.Student;
+
+
+
 import model.klas.Sessie;
 //test
+
 public class PrIS {
 	private ArrayList<Docent> deDocenten;
 	private ArrayList<Student> deStudenten;
@@ -103,6 +109,19 @@ public class PrIS {
 		}
 		return lCal;
 	}
+	
+	public ArrayList<Presentie> studentPresentieInzien(String dat, Student deStud){
+		ArrayList<Presentie> studentPresenties = new ArrayList<Presentie>();
+		for(Sessie pSessie: deSessies){
+			if (pSessie.getCollege().getDatum() == dat){
+				Presentie p = new Presentie(deStud);
+				studentPresenties.add(p);		
+			}
+		}
+		return studentPresenties;
+	
+	}
+	
 	
 	public static Calendar getEersteles() {
 		Date hoogste = null;
@@ -694,5 +713,7 @@ public class PrIS {
 				}
 			}
 		}
+		
+
 	}
 }
