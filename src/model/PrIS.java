@@ -20,7 +20,7 @@ import model.persoon.Docent;
 import model.persoon.Management;
 import model.persoon.Student;
 import model.klas.Sessie;
-
+//test
 public class PrIS {
 	private ArrayList<Docent> deDocenten;
 	private ArrayList<Student> deStudenten;
