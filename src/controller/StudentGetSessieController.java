@@ -58,11 +58,17 @@ public class StudentGetSessieController implements Handler {
 	    		}
 	    	}
 	  	}
-	  	JsonObjectBuilder lJob = Json.createObjectBuilder(); 
-	  	lJob.add("errorcode", 0);
-	   	//nothing to return use only errorcode to signal: ready!
-	  	String lJsonOutStr = lJob.build().toString();
-	 		conversation.sendJSONMessage(lJsonOutStr);	
+	  	String als = "";
+	  	for(Sessie getsessie : desessies){
+			for (Presentie depresentie : getsessie.getCollege().getdePresentie()){
+				if (depresentie.getStudent().equals(informatieSysteem.getStudent(lGebruikersnaam))){
+					als = depresentie.getStudent().getGebruikersnaam();
+				}
+			}
+	  	}
+		JsonObjectBuilder lJsonObjectBuilder2 = Json.createObjectBuilder();
+		lJsonObjectBuilder2.add("absent", als);																	// en teruggekregen gebruikersrol als JSON-object...
+		String lJsonOut = lJsonObjectBuilder2.build().toString();
 	}
 	  	
 	
