@@ -96,7 +96,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     method="POST"
     url="/my-absent-CollegeSelecteren/sessiesopslaan"
     handle-as="json"
-    on-response="_opslaan_sessiesinfo_response_handler">
+    on-response="_opslaan_sessiesopslaan_response_handler">
     </iron-ajax>
 	
 	
@@ -163,7 +163,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._c_sessies = request.detail.response;
       },
       
-      _opslaan_sessiesinfo_request_handler: function() {
+      _opslaan_sessiesopslaan_request_handler: function() {
     	  this.gebruiker = sessionStorage.username;
     	  this.datum = sessionStorage.datumabsentie;
     	  this.reden = sessionStorage.reden;
@@ -178,12 +178,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     	      };
     	      console.log("test3")
     	  
-    	      this.$.ajax_sessiesinfo.generateRequest();
+    	      this.$.ajax_sessiesopslaan.generateRequest();
     	      
     	      console.log("test4")
     	    },
     	    
-    	  _opslaan_sessiesinfo_response_handler: function(request) {
+    	  _opslaan_sessiesopslaan_response_handler: function(request) {
           console.log(request.detail.response.absent);         
           this._go_home();		/* verlaat de pagina en ga terug naar home page */
         },

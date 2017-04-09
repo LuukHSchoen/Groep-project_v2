@@ -28,7 +28,7 @@ public class StudentGetSessieController implements Handler {
 	  if (conversation.getRequestedURI().startsWith("/my-absent-CollegeSelecteren/sessiesinfo")) {
 			sessiesinfo(conversation);
 		}
-	  if (conversation.getRequestedURI().startsWith("/my-absent-CollegeSelecteren/sessiesopslaan")) {
+	  else{
 			sessiesopslaan(conversation);
 	  }
 	}
