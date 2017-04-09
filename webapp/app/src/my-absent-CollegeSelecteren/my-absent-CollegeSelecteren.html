@@ -17,27 +17,183 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 
 <style>
 :host {
 	display: block;
 	padding: 10px 20px;
 }
-
-
+ .cursuscode {
+        min-width: 100px;
+        text-align: left;
+       }
+      .tijd {
+        min-width: 100px;
+        text-align: left;
+      }
+      .absent {
+        min-width: 100px;
+        text-align: left;
+      }
+      .my-check {
+       min-width: 100px;
+       text-align: center;}
+       
+      .my-button {
+        width: 100%;                        /* full width */
+        color: white;                       /* white tekst */
+        background: #1a9fd9;                /* kind of blue */
+        --paper-button-ink-color: #00567B;  /* kind of dark blue */
+        margin-top: 5px;                    /* enlarge thet default */
+        margin-left: 0px;                   /* reduce the default */
+      }
 </style>
 
 <dom-module id="my-absent-CollegeSelecteren"> <template>
 
 
-<center><h1>Test:</h1></center>
+<center>
+	<h1>Test:</h1>
+</center>
 
- 
-</template>
- 
-<script>
-	Polymer({
-		is : "my-absent-CollegeSelecteren"
-});
+<table>
+	<tr>
+		<th class="cursuscode">Cursuscode</th>
+		<th class="tijd">Tijd</th>
+		<th class="absent">Present?</th>
+		
+	</tr>
+	<template is="dom-repeat" items="[[_c_sessies]]">
+	<tr>
+		<td class="cursuscode">[[item.cursuscode]]</td>
+		<td class="tijd">[[item.tijd]]</td>
+		<td class="absent">
+             <paper-checkbox
+              class="my-check"
+              checked="{{item.aanwezig}}">
+            </paper-checkbox></td>
+	</tr>
+	</template>
+</table>
+      <paper-button
+      id="Sessies_vrager"
+      on-click="_opslaan_sessiesinfo_request_handler"
+      raised> Absenties verwerken
+    </paper-button>
+
+	<iron-ajax 
+	id="ajax_sessiesinfo" 
+	method="POST"
+	url="/my-absent-CollegeSelecteren/sessiesinfo" 
+	handle-as="json"
+	on-response="_ophalen_sessiesinfo_response_handler"> 
+	</iron-ajax> 
+	
+	<iron-ajax
+    id="ajax_sessiesopslaan"
+    method="POST"
+    url="/my-absent-CollegeSelecteren/sessiesopslaan"
+    handle-as="json"
+    on-response="_opslaan_sessiesinfo_response_handler">
+    </iron-ajax>
+	
+	
+	</template> <script>
+(function() {
+    'use strict';
+    /* _xxxx private              : geen external data binding      - geen notify
+       _c_xx private constant     : geen external binding, constant - geen notify
+       c_xx  public constant      : one way external databinding [[c_xx]] - geen notify nodig
+       xxxx  public               : two way external databinding {{xxxx}} - notify nodig
+    */
+    Polymer({
+      is: 'my-absent-CollegeSelecteren',
+      properties: {
+          _c_sessies: {
+            type: Array,           /* array<student-info>: student-info = {id, firstName, lastName, sameGroup}						array is constant groepnr is changable */
+          },
+          gebruiker: {
+        	  type : String,
+          },
+          datumString: {
+        	  type : String,
+          },
+          reden: {
+        	  type : String,
+        	 
+        	  },
+          vakcode: {
+            type: String,
+          },
+          tijd: {
+            type: String,
+          },
+          c_visible: {
+            type: Boolean,                                      /* true when element is the active visible item */
+            value: false,
+            observer: '_ophalen_sessies_request_handler',               
+
+    },
+      },
+     
+    _ophalen_sessies_request_handler : function() {
+    if (this.c_visible) {
+	  this.datumString = sessionStorage.datumabsentie;
+  	  this.gebruiker = sessionStorage.username;
+    	
+    console.log("_ophalen_sessiesinfo_request_handler username= " + this.gebruiker + this.datumString);
+      this.$.ajax_sessiesinfo.contentType="application/json";
+      this.$.ajax_sessiesinfo.body={
+       "username":this.gebruiker,
+       "datum":this.datumString,
+      };
+      console.log("test")
+  
+      this.$.ajax_sessiesinfo.generateRequest();
+      
+      console.log("test2")
+    }
+      },
+      
+      _ophalen_sessiesinfo_response_handler: function(request) {
+   	 	this.gebruiker = sessionStorage.username;
+        console.log("_ophalen_sessiesinfo_response_handler username="+ this.gebruiker);
+        this._c_sessies = request.detail.response;
+      },
+      
+      _opslaan_sessiesinfo_request_handler: function() {
+    	  this.gebruiker = sessionStorage.username;
+    	  this.datum = sessionStorage.datumabsentie;
+    	  this.reden = sessionStorage.reden;
+    	  
+    	    console.log("_opslaan_sessiesinfo_request_handler " + this.gebruiker + this.datumstring + this.reden);
+    	      this.$.ajax_sessiesopslaan.contentType="application/json";
+    	      this.$.ajax_sessiesopslaan.body={
+    	              "colleges":this._c_sessies,
+    	              "username":this.gebruiker,
+    	              "datum":this.datumString,
+    	              "reden":this.aanwezig
+    	      };
+    	      console.log("test3")
+    	  
+    	      this.$.ajax_sessiesinfo.generateRequest();
+    	      
+    	      console.log("test4")
+    	    },
+    	    
+    	  _opslaan_sessiesinfo_response_handler: function(request) {
+          console.log("Gelukt");         
+          this._go_home();		/* verlaat de pagina en ga terug naar home page */
+        },
+        
+        _go_home: function() {
+            var lApp = document.querySelector('my-app');  //het polymer element <my-app>
+            var lAppRouter = lApp.$.approuter;            // het html-element <app-route> met id=approuter
+            lAppRouter.data={page: ""};
+        },
+    
+    });
+    })();
 </script> </dom-module>
 

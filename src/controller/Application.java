@@ -43,7 +43,8 @@ public class Application {
   	server.registerHandler("/student/medestudenten/ophalen", medestudentenController);
   	server.registerHandler("/student/medestudenten/opslaan", medestudentenController);
   	
-  	server.registerHandler("/my-absent/sessiesinfo", studentgetsessiecontroller);
+  	server.registerHandler("/my-absent-CollegeSelecteren/sessiesinfo", studentgetsessiecontroller);
+  	server.registerHandler("/my-absent-CollegeSelecteren/sessiesopslaan", studentgetsessiecontroller);
 	
 		
 		server.start();

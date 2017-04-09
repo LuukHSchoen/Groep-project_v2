@@ -56,16 +56,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-click="submitForm"
       raised> Verzend
     </paper-button>
-     
- 
 
-    <iron-ajax
-      id="ajax_sessiesinfo"
-      method="POST"
-      url="/my-absent/sessiesinfo"
-      handle-as="json"
-      on-response="_ophalen_sessiesinfo_response_handler">
-    </iron-ajax>
 </template>
  
 <script>
@@ -102,47 +93,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 		 submitForm: function() {
 			 var res = sessionStorage.datum;
-			 
+			 alert(res);
+			 alert(this.datum);
 			 
 			 if (this.datum >= res) {				 
 				 if (this.type == "" || this.type == "undefined"|| this.datum == "") {
 						alert('Ongeldige invoer');
 					} else {
-						 this.gebruiker = sessionStorage.username;
-						 this.datumString = this.datum.toString();
-			             console.log("_ophalen_sessiesinfo_request_handler username= " + this.gebruiker + this.datum);
-			               this.$.ajax_sessiesinfo.contentType="application/json";
-			               this.$.ajax_sessiesinfo.body={
-			                "username":this.gebruiker,
-			                "datum":this.datumString,
-			                "reden":this.type
-			               };
-			               console.log("test")
-			           
-			               this.$.ajax_sessiesinfo.generateRequest();
-			               
-			               console.log("test2")
-			          
+						sessionStorage.datumabsentie = "" + this.datum;
+						sessionStorage.reden = this.type;
+						   
 						alert('Je bent absent gemeld op ' + this.datum + ' met reden: ' + this.type + '.');
+						location.href = "#/my-absent-CollegeSelecteren";
 					}
 			 }else {
 				 alert('De ingevulde datum is niet correct.');
 				 
 			 }
             
-	      },
-			
-          _ophalen_sessiesinfo_response_handler: function(request) {
-         	 	this.gebruiker = sessionStorage.username;
-	                console.log("_ophalen_sessiesinfo_response_handler username="+ this.gebruiker);
-	                this._c_sessies = request.detail.response;
-	                sessionStorage.studentsessie = this._c_sessies;
-	                location.href = "#/my-absent-CollegeSelecteren";
-	                
-	
-	              },
-		    
-	      
+	      }, 
 		 
     });
 })();
