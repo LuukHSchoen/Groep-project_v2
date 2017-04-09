@@ -16,16 +16,106 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
 </style>
 
+	<iron-ajax 
+	id="ajax_aanpassen" 
+	method="POST"
+	url="/my-presentiesAanpassen/aanpassen" 
+	handle-as="json"
+	on-response="_ophalen_aanpassen_response_handler"> 
+	</iron-ajax> 
+
 <dom-module id="my-presentiesAanpassen">
   <template>
   
-<center><h1>Presenties aanpassen:</h1></center>
-<a href="#/my-presentiesInvoeren">link text</a>
+<center><h1>Kies uw datum:</h1></center>
 
-  </template>
-  <script>
-    Polymer({
-      is: "my-presentiesAanpassen"
+<paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{datum}}">
+	<vaadin-date-picker  label="Kies een datum" value="{{datum}}" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
+</paper-listbox>  
+
+ <br>
+  <paper-button
+      id="Sessies_vrager"
+      on-click="submitForm"
+      raised> Verzend
+    </paper-button>
+
+</template>
+ 
+<script>
+(function() {
+'use strict';
+
+	Polymer({
+		is : 'my-presentiesAanpassen',
+		
+		properties: {
+			college: {
+				type: String,
+			},
+			datum: {
+				type: Date,
+			},
+			datumString: {
+				type: String,
+			},
+			
+			gebruiker: {
+				type: String,
+			},
+		
+	          _c_collegeinfo: {
+	            type: Object,                   
+	          },
+	          
+	          c_visible: {
+	            type: Boolean,                                  
+	            value: false,
+	            observer: '_ophalen_aanpassen_request_handler',    
+                                                   
+	          },
+		},
+
+		 submitForm: function() {
+			 var res = sessionStorage.datum;
+			 alert("Huidige systeemdatum " + res);
+			 alert("Ingevoerde systeemdatum " + this.datum);
+			 
+			 if (this.datum <= res) {				 
+				 if (this.type == "" || this.type == "undefined"|| this.datum == "") {
+						alert('Ongeldige invoer');
+					} else {
+						sessionStorage.datumabsentie = "" + this.datum;
+						sessionStorage.reden = this.type;
+						   
+						alert('Presentie woord aangepast voor ' + this.datum + '.');
+				
+					}
+			 }else {
+				 alert('De ingevulde datum is niet correct.');
+			 }
+		 },
+		 
+		 _ophalen_aanpassen_request_handler : function() {
+			    if (this.c_visible) {
+
+			  	  this.gebruiker = sessionStorage.username;
+			    	
+			    console.log("_ophalen_aanpassen_request_handler username= " + this.gebruiker + this.datum);
+			      this.$.ajax_sessiesinfo.contentType="application/json";
+			      this.$.ajax_sessiesinfo.body={
+			       "username":this.gebruiker,
+			       "datum":this.datum,
+			      };
+			      console.log("test")
+			  
+			      this.$.ajax_sessiesinfo.generateRequest();
+			      
+			      console.log("test2")
+			    }
+			      },
+
+		 
     });
-  </script>
-</dom-module>
+})();
+</script> </dom-module>
