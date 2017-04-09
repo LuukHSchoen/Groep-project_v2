@@ -293,8 +293,8 @@ public class PrIS {
 		ArrayList<Presentie> Presenties = new ArrayList<Presentie>();
 		for(Sessie pSessie: deSessies){
 			if (pSessie.getCursus().getcursusCode().equals(cC) && pSessie.getKlas().getKlasCode().equals(ks) && pSessie.getCollege().getBeginEnEindTijd().equals(tijd)){
-				Presentie p = new Presentie(deStud);
-				Presenties.add(p);
+				Presentie pr = new Presentie(deStud);
+				Presenties.add(pr);
 			}
 		}
 		return Presenties;
