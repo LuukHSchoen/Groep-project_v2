@@ -135,6 +135,16 @@ public class PrIS {
 		
 	}
 	
+	public ArrayList<String> getKlassenvanDocent(Docent doc){
+		ArrayList<String> klassenLijst = new ArrayList<String>();
+		for (Sessie ses : deSessies){
+			if (ses.getDocent().equals(doc)){
+				klassenLijst.add(ses.getKlas().getNaam());
+			}
+		}
+		return klassenLijst;
+	}
+	
 	
 	public static Calendar getEersteles() {
 		Date hoogste = null;
