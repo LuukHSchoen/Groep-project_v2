@@ -146,12 +146,15 @@ public class PrIS {
 		return klassenLijst;
 	}
 	
-	public ArrayList<Presentie> docentPresentieInzien(String dat, String kCode){
+	public ArrayList<Presentie> docentPresentieInzien(String dat, String kCode, String begEindTijd){
 		
 		ArrayList<Presentie> presentieLijst = new ArrayList<Presentie>();
 		for (Sessie ses : deSessies){
 			for (Presentie depresentie : ses.getCollege().getdePresentie())	{
-				if (ses.getKlas().equals(kCode) && ses.getCollege().getDatum().equals(dat)){
+				if (ses.getKlas().equals(kCode) 
+						&& ses.getCollege().getDatum().equals(dat) 
+						&& ses.getCollege().getBeginEnEindTijd().equals(begEindTijd))
+				{
 					presentieLijst.add(depresentie);
 				}
 			}
