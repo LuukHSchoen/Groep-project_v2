@@ -181,6 +181,15 @@ public class PrIS {
 		}
 		return teller;
 	}
+
+	public ArrayList<String> alleDocenten(){
+		ArrayList<String> docentenLijst = new ArrayList<String>();
+		for (Docent doc : deDocenten){
+			docentenLijst.add(doc.getVolledigeAchternaam());
+		}
+		return docentenLijst;
+	}
+	
 	
 	public static Calendar getEersteles() {
 		Date hoogste = null;
