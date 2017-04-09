@@ -139,7 +139,7 @@ public class PrIS {
 		ArrayList<String> klassenLijst = new ArrayList<String>();
 		for (Sessie ses : deSessies){
 			if (ses.getDocent().equals(doc)){
-				klassenLijst.add(ses.getKlas().getNaam());
+				klassenLijst.add(ses.getKlas().getKlasCode());
 			}
 		}
 		
