@@ -148,6 +148,12 @@ public class PrIS {
 		return klassenLijst;
 	}
 	
+	public ArrayList<Presentie> getStudentenVanSessie(Sessie ses){
+		ArrayList<Presentie> studentenLijst = ses.getCollege().getdePresentie();
+		return studentenLijst;	
+		
+	}
+	
 	public ArrayList<Klas> getKlassenvanDocentmetKlas(Docent doc){
 		ArrayList<Klas> klassenLijst = new ArrayList<Klas>();
 		for (Sessie ses : deSessies){
