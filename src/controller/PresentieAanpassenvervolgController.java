@@ -59,6 +59,7 @@ public class PresentieAanpassenvervolgController implements Handler {
 	}
 	}
 	
+	
 	private void studentenabsenties(Conversation conversation) {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		
