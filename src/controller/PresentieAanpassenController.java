@@ -66,8 +66,24 @@ conversation.sendJSONMessage(lJsonOutklascodes);
 	  	ArrayList<String> deklascodes = informatieSysteem.getKlassenvanDocent(dedocent);
 		for (Klas dejuisteklas : deklassen){
 			if (dejuisteklas.getKlasCode().equals(klascode)){
+				gekozenklas = dejuisteklas;
 				
 			}
+		}
+		JsonArrayBuilder lJsonArrayBuilder = Json.createArrayBuilder();	
+		ArrayList<Sessie> desessies = informatieSysteem.getSessiesOpDatumEnKlas(datum, gekozenklas.getKlasCode());
+		for (Sessie deSessie : desessies) {
+			String decursuscode = deSessie.getCursus().getcursusCode();
+			String deklascode = deSessie.getKlas().getKlasCode();
+			String detijd = deSessie.getCollege().getBeginEnEindTijd();
+			String samen = decursuscode + " - " + deklascode + " - " + detijd;
+			JsonObjectBuilder lJsonObjectBuilderString = Json.createObjectBuilder(); // maak het JsonObject voor een student
+			lJsonObjectBuilderString
+				.add("destring", samen);																//vul het JsonObject		     
+
+		  lJsonArrayBuilder.add(lJsonObjectBuilderString);	
+			
+			
 		}
 	}
 }
