@@ -156,13 +156,13 @@ public class PrIS {
 		return klassenLijst;
 	}
 	
-	public Sessie vergelijkDeSessie(String inf){
+	public Sessie vergelijkDeSessie(String inf, String datum){
 		Sessie deSes = null;
 		for(Sessie ses : deSessies){
 			String s =		ses.getCursus().getcursusCode() + 
 					" - " + ses.getKlas().getKlasCode() + 
 					" - " + ses.getCollege().getBeginEnEindTijd();
-			if (s.equals(inf)){
+			if (s.equals(inf) && ses.getCollege().getDatum().equals(datum)){
 				deSes = ses;
 			}
 		}
