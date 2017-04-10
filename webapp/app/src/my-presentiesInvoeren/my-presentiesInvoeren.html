@@ -74,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           	  type : String,
             },
             _c_colleges: {
-                type: Array,           /* array<student-info>: student-info = {id, firstName, lastName, sameGroup}						array is constant groepnr is changable */
+                type: String,           /* array<student-info>: student-info = {id, firstName, lastName, sameGroup}						array is constant groepnr is changable */
               },
 		},
             
@@ -83,7 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			if (this.c_visible) {
 				this.datumString = sessionStorage.datum;
 			  	this.gebruiker = sessionStorage.username;
-			  	console.log()
+			  	
 			  	
 			    this.$.ajax_college_ophalen.contentType="application/json";
 		          this.$.ajax_college_ophalen.body={
@@ -93,12 +93,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		          this.$.ajax_college_ophalen.generateRequest();
 		        }
 				
-			},			
+			},	
 			
-			_college_ophalen_response_handler: function(request) {
-	        	console.log(this.c_username)
+			/*
+			
+			_college_ophalen_response_handler : function(request) {	        	
 	        	this._c_colleges = request.detail.response;	            
 	          },
+	           */
+	          
 	        
 	       
 		
