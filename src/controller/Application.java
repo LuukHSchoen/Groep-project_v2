@@ -50,6 +50,7 @@ public class Application {
   	
   	server.registerHandler("my-presentieInvoeren/ophalen", docentgetstudentencontroller);
   	server.registerHandler("/my-presentiesAanpassen/ophalen", presentiesaanpassencontroller);
+  	server.registerHandler("/my-presentiesAanpassen/sessie", presentiesaanpassencontroller);
   	
 		
 		server.start();
