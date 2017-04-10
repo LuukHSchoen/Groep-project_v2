@@ -9,14 +9,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel='import' href='bower_components/paper-button/paper-button.html'/>
-<link rel='import' href='bower_components/paper-listbox/paper-listbox.html'/>
-<link rel='import' href='bower_components/paper-item/paper-item.html'/>
-<link rel='import' href='bower_components/paper-checkbox/paper-checkbox.html'/>
-<link rel='import' href='bower_components/paper-input/paper-input.html'/>
-<link rel='import' href='bower_components/paper-dialog/paper-dialog.html'/>
-<link rel='import' href='bower_components/iron-icons/iron-icons.html'/>
-
+<link rel='import' href='../../bower_components/paper-button/paper-button.html'/>
+<link rel='import' href='../../bower_components/paper-listbox/paper-listbox.html'/>
+<link rel='import' href='../../bower_components/paper-item/paper-item.html'/>
+<link rel='import' href='../../bower_components/paper-checkbox/paper-checkbox.html'/>
+<link rel='import' href='../../bower_components/paper-input/paper-input.html'/>
+<link rel='import' href='../../bower_components/paper-dialog/paper-dialog.html'/>
+<link rel='import' href='../../bower_components/iron-icons/iron-icons.html'/>
 
 
 <dom-module id="my-presentiesInvoeren"> <template>
@@ -67,14 +66,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             observer: '_college_ophalen_response_handler', 
 		},
             
-            gebruiker: {
+            c_gebruiker: {
           	  type : String,
             },
             datumString: {
           	  type : String,
             },
             _c_colleges: {
-                type: String,           /* array<student-info>: student-info = {id, firstName, lastName, sameGroup}						array is constant groepnr is changable */
+                type: Array,           /* array<student-info>: student-info = {id, firstName, lastName, sameGroup}						array is constant groepnr is changable */
               },
 		},
             
@@ -82,7 +81,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		_college_ophalen_request_handler: function() {	
 			if (this.c_visible) {
 				this.datumString = sessionStorage.datum;
-			  	this.gebruiker = sessionStorage.username;
+			  	this.c_gebruiker = sessionStorage.username;
 			  	
 			  	
 			    this.$.ajax_college_ophalen.contentType="application/json";
@@ -100,9 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			_college_ophalen_response_handler : function(request) {	        	
 	        	this._c_colleges = request.detail.response;	            
 	          },
-	           */
-	          
-	        
+	           	   */            
 	       
 		
 		 ready: function() {
