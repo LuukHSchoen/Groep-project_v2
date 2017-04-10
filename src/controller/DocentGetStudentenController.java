@@ -10,6 +10,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
 import model.PrIS;
+import model.persoon.Docent;
 import model.persoon.Student;
 import model.klas.Klas;
 import model.klas.Sessie;
@@ -34,28 +35,12 @@ public class DocentGetStudentenController implements Handler {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		
 		String lGebruikersnaam = lJsonObjIn.getString("username");
+		Docent lDocentZelf = informatieSysteem.getDocent(lGebruikersnaam);
 	  	String datum = lJsonObjIn.getString("datum");
 	  	
-	  	Klas deklas = informatieSysteem.getDocentKlass(informatieSysteem.getStudent(datum,lGebruikersnaam));
+	  	ArrayList<String> colleges = informatieSysteem.getSessieDocent(datum, lGebruikersnaam);
 	  	
-	  	JsonArrayBuilder lJsonArrayBuilder = Json.createArrayBuilder();	
 	  	
-	  	JsonObjectBuilder lJsonObjectBuildergeminstesessie = Json.createObjectBuilder();
-	  	
-	  	String cursuscode = "TICT-V1OODC-15_2016";
-	  	String klascode = "TICT-SIE-V1D";
-	  	String tijd = "11:00 tot 12:00";
-	  	
-	  	lJsonObjectBuildergeminstesessie
-		.add("cursuscode", cursuscode)																//vul het JsonObject		     
-		.add("klascode", klascode)
-		.add("tijd", tijd);
-	
-	  	lJsonArrayBuilder.add(lJsonObjectBuildergeminstesessie);	
-	  	
-	  	String lJsonOutGemisteSessie = lJsonArrayBuilder.build().toString();												// maak er een string van
-		conversation.sendJSONMessage(lJsonOutGemisteSessie);
-		
 		
 		
 	}
