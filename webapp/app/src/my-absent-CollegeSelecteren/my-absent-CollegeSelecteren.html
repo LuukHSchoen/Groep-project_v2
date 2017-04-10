@@ -25,6 +25,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	display: block;
 	padding: 10px 20px;
 }
+
+
+
  .cursuscode {
         min-width: 100px;
         text-align: left;
@@ -32,6 +35,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .tijd {
         min-width: 100px;
         text-align: left;
+        
       }
       .absent {
         min-width: 100px;
@@ -39,7 +43,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       .my-check {
        min-width: 100px;
-       text-align: center;}
+       text-align: center;
+       }
        
       .my-button {
         width: 100%;                        /* full width */
@@ -55,14 +60,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 <center>
-	<h1>Test:</h1>
+	<h1>Absent melden voor college:</h1>
 </center>
 
-<table>
+<table class="tabel">
 	<tr>
 		<th class="cursuscode">Cursuscode</th>
 		<th class="tijd">Tijd</th>
-		<th class="absent">Present?</th>
+		<th class="absent">Absent?</th>
 		
 	</tr>
 	<template is="dom-repeat" items="[[_c_sessies]]">
