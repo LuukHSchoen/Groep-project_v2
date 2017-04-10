@@ -29,8 +29,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 </style>
+			
+<table>
+	<tr>
+		<th class="studentid">StudentID</th>
+		<th class="voornaam">Voornaam</th>
+		<th class="achternaam">Achternaam</th>
+		<th class="reden">reden</th>
+		<th class="absentie">Present</th>
+		
+	</tr>
+	<template is="dom-repeat" items="[[_c_studenten]]">
+	<tr>
+		<td class="studentid">[[item.studentid]]</td>
+		<td class="voornaam">[[item.voornaam]]</td>
+		<td class="achternaam">[[item.achternaam]]</td>
+		<td class="reden">[[item.reden]]</td>
+             <paper-checkbox
+              class="my-check"
+              checked="{{item.absentie}}">
+            </paper-checkbox></td>
+	</tr>
+	</template>
+</table>
 
-Hoi
+
+<iron-ajax 
+	id="ajax_student" 
+	method="POST"
+	url="/my-PresentieAanpassen-vervolg/studenten" 
+	handle-as="json"
+	on-response="_ophalen_studenten_reponse_handler"> 
+	</iron-ajax>
+	
+
 
 </template>
  
@@ -44,6 +76,12 @@ Hoi
 		properties: {
 			college: {
 				type: String,
+			},
+			destring : {
+				type: String,
+			},
+			_c_studenten : {
+				type: Array,
 			},
 			datum: {
 				type: Date,
@@ -62,9 +100,34 @@ Hoi
 	          
 	          c_visible: {
 	            type: Boolean,                                  
-	            value: false,                                                     
+	            value: false,
+	            observer: '_ophalen_studenten_request_handler',  
 	          },
 		},
+		  _ophalen_studenten_request_handler : function() {
+			    if (this.c_visible) {
+			      this.destring = sessionStorage.presentiestring; 
+			  	  this.gebruiker = sessionStorage.username;
+			    	
+			    console.log("_ophalen_sessiesinfo_request_handler username= " + this.gebruiker + this.datumString);
+			      this.$.ajax_student.contentType="application/json";
+			      this.$.ajax_student.body={
+			       "username":this.gebruiker,
+			       "destring":this.destring,
+			      };
+			      console.log("test")
+			  
+			      this.$.ajax_student.generateRequest();
+			      
+			      console.log("test2")
+			    }
+			      },
+			      
+			      _ophalen_studenten_reponse_handler : function(request) {
+			    	  this.gebruiker = sessionStorage.username;
+			          console.log("_ophalen_studenten_reponse_handler"+ this.gebruiker);
+			          this._c_studenten = request.detail.response;
+			      }
 		 
     });
 })();

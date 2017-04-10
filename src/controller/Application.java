@@ -37,6 +37,7 @@ public class Application {
 		StudentGetSessieController studentgetsessiecontroller = new StudentGetSessieController(infoSysteem);
 		DocentGetStudentenController docentgetstudentencontroller = new DocentGetStudentenController(infoSysteem);
 		PresentieAanpassenController presentiesaanpassencontroller = new PresentieAanpassenController(infoSysteem);
+		PresentieAanpassenvervolgController presentiesaanpassenvervolgcontroller = new PresentieAanpassenvervolgController(infoSysteem);
 		
 		server.registerHandler("/systeemdatum/lesinfo", systeemDatumController);
 
@@ -52,6 +53,8 @@ public class Application {
   	server.registerHandler("my-presentieInvoeren/ophalen", docentgetstudentencontroller);
   	server.registerHandler("/my-presentiesAanpassen/ophalen", presentiesaanpassencontroller);
   	server.registerHandler("/my-presentiesAanpassen/sessie", presentiesaanpassencontroller);
+  	
+  	server.registerHandler("/my-PresentieAanpassen-vervol/studenten", presentiesaanpassencontroller);
   	
 		
 		server.start();
