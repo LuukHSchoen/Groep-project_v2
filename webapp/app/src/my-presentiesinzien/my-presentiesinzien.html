@@ -31,7 +31,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<td class="cursuscode" style="padding:10px 20px;">[[item.cursuscode]]</td>
 		<td class="tijd" style="padding:10px 20px;">[[item.tijd]]</td>
 		<td class="absent" style="padding:10px 20px;">
-             <paper-checkbox
+             <paper-checkbox disabled
               class="my-check"
               checked="{{item.aanwezig}}">
             </paper-checkbox></td>
@@ -47,6 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </iron-ajax>
 
   <paper-button
+  	  raised
       class="my-button"
       on-click="submitForm">Absentie ophalen
     </paper-button>
