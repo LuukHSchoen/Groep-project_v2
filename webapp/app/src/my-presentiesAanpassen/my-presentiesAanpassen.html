@@ -82,6 +82,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <br>
    	<br>
    	
+   	<paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{keuze}}"> 
+    <template is="dom-repeat" items="[[_c_sessies]]">
+    <tr><paper-item value="{{item.destring}}">[[item.destring]]</paper-item></tr>    
+    </template>
+    </paper-listbox>
+    
+      <paper-button
+      id="VerzendPagina_button_element"
+      on-click="submitde"
+      raised>
+       Bevestig college
+    </paper-button>
+   	
   
 
 </template>
@@ -112,6 +125,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				type: String,
 			},
 		},
+		
+		submitde: function(){
+			sessionStorage.presentieaanpas = this.keuze
+			location.href = "#/my-PresentieAanpassen-vervolg";
+		}
 
 		 submitForm: function() {
 			 var res = sessionStorage.datum;
@@ -122,13 +140,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				 if (this.type == "" || this.type == "undefined"|| this.datum == "") {
 						alert('Ongeldige invoer');
 					} else {
-						datumString =  "" + this.datum;
+						this.datumString =  "" + this.datum;
 						this.gebruiker = sessionStorage.username;
 						console.log("_ophalen_aanpassen_request_handler username= " + this.gebruiker + this.datum + this.type);
 						this.$.ajax_sessie.contentType="application/json";
 						this.$.ajax_sessie.body={
 						       "username":this.gebruiker,
-						       "datum":this.datum,
+						       "datum":this.datumString,
 						       "klas":this.type,
 						      };
 						      this.$.ajax_sessie.generateRequest();

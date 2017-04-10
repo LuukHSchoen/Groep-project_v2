@@ -85,5 +85,7 @@ conversation.sendJSONMessage(lJsonOutklascodes);
 			
 			
 		}
+		String lJsonOutDesessies = lJsonArrayBuilder.build().toString();												// maak er een string van
+		conversation.sendJSONMessage(lJsonOutDesessies);
 	}
 }
