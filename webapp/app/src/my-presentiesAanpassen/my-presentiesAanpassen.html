@@ -37,32 +37,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </paper-listbox>  
 
  <br>
-<br>
-
 
 	<iron-ajax 
-	id="ajax_aanpassen" 
-	method="POST"
-	url="/my-presentiesAanpassen/ophalen" 
-	handle-as="json"
-	on-response="_ophalen_aanpassen_response_handler"> 
+		id="ajax_aanpassen" 
+		method="POST"
+		url="/my-presentiesAanpassen/ophalen" 
+		handle-as="json"
+		on-response="_ophalen_aanpassen_response_handler"> 
 	</iron-ajax> 
 	
 	<iron-ajax 
-	id="ajax_sessie" 
-	method="POST"
-	url="/my-presentiesAanpassen/sessie" 
-	handle-as="json"
-	on-response="_sessie_aanpassen_reponse_handler"> 
+		id="ajax_sessie" 
+		method="POST"
+		url="/my-presentiesAanpassen/sessie" 
+		handle-as="json"
+		on-response="_sessie_aanpassen_reponse_handler"> 
 	</iron-ajax> 
 	
 	 <paper-button
-      id="login_button_element"
-      on-click="_ophalen_aanpassen_request_handler"
-      raised>
-       Uw klassen
-    </paper-button>
-    
+      	id="login_button_element"
+      	on-click="_ophalen_aanpassen_request_handler"
+      	raised>
+      	Uw klassen
+     </paper-button> <br>
+    <br>
     <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{type}}"> 
     <template is="dom-repeat" items="[[_c_klascodes]]">
     <tr><paper-item value="{{item.klascode}}">[[item.klascode]]</paper-item></tr>    
@@ -70,14 +68,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-listbox>
     
     <br>
-    <br>
+    
     
     <paper-button
-      id="Verzend_button_element"
-      on-click="submitForm"
-      raised>
-       Bevestig klas
-    </paper-button>
+     	id="Verzend_button_element"
+     	on-click="submitForm"
+     	raised>
+     	Bevestig klas
+     </paper-button> 
     
     <br>
    	<br>
@@ -86,14 +84,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template is="dom-repeat" items="[[_c_sessies]]">
     <tr><paper-item value="{{item.destring}}">[[item.destring]]</paper-item></tr>    
     </template>
-    </paper-listbox>
+    </paper-listbox> <br>
     
       <paper-button
       id="VerzendPagina_button_element"
       on-click="submitde"
       raised>
-       Bevestig college
-    </paper-button>
+      Bevestig college
+      </paper-button>
    	
   
 
@@ -133,9 +131,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		},
 
 		 submitForm: function() {
-			 var res = sessionStorage.datum;
-			 alert("Huidige systeemdatum " + res);
-			 alert("Ingevoerde systeemdatum " + this.datum);
+			 var res = sessionStorage.datum;			 
 			 sessionStorage.dedatum = this.datum;
 			 
 			 if (this.datum <= res) {				 

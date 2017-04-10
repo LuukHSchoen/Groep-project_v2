@@ -40,20 +40,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	</tr>
 	<template is="dom-repeat" items="[[_c_studenten]]">
 	<tr>
-		<td class="studentid">[[item.studentid]]</td>
-		<td class="naam">[[item.voornaam]]</td>
-		<td class="reden">[[item.reden]]</td>
+		<td class="studentid" style="padding:10px 20px;">[[item.studentid]]</td>
+		<td class="naam" style="padding:10px 20px;">[[item.voornaam]]</td>
+		<td class="reden" style="padding:10px 20px;">[[item.reden]]</td>
              <td><paper-checkbox
               class="my-check"
               checked="{{item.absentie}}">
             </paper-checkbox></td>
 	</tr>
 	</template>
-</table>
+</table> <br>
    <paper-button
       id="Sessies_vrager"
       on-click="_ophalen_studenten_request_handler"
-      raised> De Studenten
+      raised> Studenten ophalen
     </paper-button>	
     
       <paper-button
