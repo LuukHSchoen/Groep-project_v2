@@ -13,13 +13,102 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="my-presentiesInzien"> <template>   
 <center><h1>Presenties inzien:</h1></center>
 
+<center><h2>Kies uw datum:</h2></center>
+
+<paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{datum}}">
+	<vaadin-date-picker  label="Kies een datum" value="{{datum}}" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
+</paper-listbox>  
 
 
+	<template is="dom-repeat" items="[[_c_desessies]]">
+	<tr>
+		<td class="cursuscode" style="padding:10px 20px;">[[item.cursuscode]]</td>
+		<td class="tijd" style="padding:10px 20px;">[[item.tijd]]</td>
+		<td class="absent" style="padding:10px 20px;">
+             <paper-checkbox
+              class="my-check"
+              checked="{{item.aanwezig}}">
+            </paper-checkbox></td>
+	</tr>
+	</template>
+</table> <br>
+    <iron-ajax
+      id="ajax_studentziet"
+      method="POST"
+      url="/my-presentiesinzien/ophalen"
+      handle-as="json"
+      on-response="_student_ophalen_response_handler">
+    </iron-ajax>
+
+  <paper-button
+      class="my-button"
+      on-click="submitForm">Getsessies
+    </paper-button>
 
   </template>
   <script>
     Polymer({
-      is: "my-presentiesInzien"
+      is: "my-presentiesInzien",
+    	  properties: {
+  			college: {
+  				type: String,
+  			},
+  			destring : {
+  				type: String,
+  			},
+  			_c_desessies : {
+  				type: Array,
+  			},
+  			datum: {
+  				type: Date,
+  			},
+  			datumString: {
+  				type: String,
+  			},
+  			
+  			gebruiker: {
+  				type: String,
+  			},
+  		
+  	          _c_collegeinfo: {
+  	            type: Object,                   
+  	          },
+    	  },
+    	  submitForm: function() {
+ 			 var res = sessionStorage.datum;
+ 			 alert("Huidige systeemdatum " + res);
+ 			 alert("Ingevoerde systeemdatum " + this.datum);
+ 		
+ 			 
+ 			 if (this.datum <= res) {				 
+ 				 if (this.type == "" || this.datum == "") {
+ 						alert('Ongeldige invoer');
+ 					} else {
+ 						this.datumString =  "" + this.datum;
+ 						this.gebruiker = sessionStorage.username;
+ 						console.log("_ophalen_aanpassen_request_handler username= " + this.gebruiker + this.datum);
+ 						this.$.ajax_studentziet.contentType="application/json";
+ 						this.$.ajax_studentziet.body={
+ 						       "username":this.gebruiker,
+ 						       "datum":this.datum,
+ 						      };
+ 						      this.$.ajax_studentziet.generateRequest();
+ 						      
+ 						      console.log("test2")
+ 						    	      }
+ 						
+ 				
+ 					}
+ 			 else {
+ 				 alert('De ingevulde datum is niet correct.');
+ 			 }
+ 		 },
+ 		 
+ 		_student_ophalen_response_handler: function(request){
+ 			this.gebruiker = sessionStorage.username;
+ 	        console.log("_ophalen_sessiesinfo_response_handler username="+ this.gebruiker);
+ 	        this._c_desessies = request.detail.response;
+ 		 },
       
     	 
       
