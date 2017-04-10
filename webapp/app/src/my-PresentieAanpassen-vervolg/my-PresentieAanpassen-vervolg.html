@@ -29,7 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 </style>
-			
+		
 <table>
 	<tr>
 		<th class="studentid">StudentID</th>
@@ -52,7 +52,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	</tr>
 	</template>
 </table>
-
+   <paper-button
+      id="Sessies_vrager"
+      on-click="_ophalen_studenten_request_handler"
+      raised> De Studenten
+    </paper-button>	
 
 <iron-ajax 
 	id="ajax_student" 
@@ -98,8 +102,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	          
 	          c_visible: {
 	            type: Boolean,                                  
-	            value: false,
-	            observer: '_ophalen_studenten_request_handler',  
+	            value: false, 
 	          },
 		},
 		  _ophalen_studenten_request_handler : function() {
@@ -107,7 +110,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			      this.destring = sessionStorage.presentiestring; 
 			  	  this.gebruiker = sessionStorage.username;
 			    	
-			    console.log("_ophalen_sessiesinfo_request_handler username= " + this.gebruiker + this.datumString);
+			    console.log("_ophalen_studenten_request_handler username= " + this.gebruiker);
 			      this.$.ajax_student.contentType="application/json";
 			      this.$.ajax_student.body={
 			       "username":this.gebruiker,
