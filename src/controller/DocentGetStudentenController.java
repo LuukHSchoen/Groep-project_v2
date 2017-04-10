@@ -8,6 +8,7 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 
 import model.PrIS;
 import model.persoon.Docent;
@@ -34,14 +35,23 @@ public class DocentGetStudentenController implements Handler {
 	private void collegeophalen(Conversation conversation) {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		
-		String lGebruikersnaam = lJsonObjIn.getString("username");
-		Docent lDocentZelf = informatieSysteem.getDocent(lGebruikersnaam);
+		String lGebruikersnaam = lJsonObjIn.getString("username");		
 	  	String datum = lJsonObjIn.getString("datum");
 	  	
 	  	ArrayList<String> colleges = informatieSysteem.getSessieDocent(datum, lGebruikersnaam);
 	  	
-	  	
-		
-		
+	  		JsonArrayBuilder lJsonArrayBuilder = Json.createArrayBuilder();
+	  		String test = "test1234";
+	  		
+	  			JsonObjectBuilder lJsonObjectBuildergeminstesessie = Json.createObjectBuilder();
+	  			lJsonObjectBuildergeminstesessie.add("college", test);
+	  			
+	  			lJsonArrayBuilder.add(lJsonObjectBuildergeminstesessie); 			
+	  			
+	  		
+	  		
+	  		String lJsonOutGemisteSessie = lJsonArrayBuilder.build().toString();												// maak er een string van
+			conversation.sendJSONMessage(lJsonOutGemisteSessie);
+	  			
 	}
 }
