@@ -21,11 +21,14 @@ public class PresentieAanpassenController implements Handler {
 	public PresentieAanpassenController(PrIS infoSys) {
 		informatieSysteem = infoSys;
 	}
-	
+	//"/my-presentiesAanpassen/sessie"
 	public void handle(Conversation conversation) {
 		  if (conversation.getRequestedURI().startsWith("/my-presentiesAanpassen/ophalen")) {
 				presentiesaanpassen(conversation);
 			}
+		  else{
+				sessiesaanpassen(conversation);
+		  }
 		}
 	
 	private void presentiesaanpassen(Conversation conversation) {
@@ -49,4 +52,22 @@ public class PresentieAanpassenController implements Handler {
 String lJsonOutklascodes = lJsonArrayBuilder.build().toString();												// maak er een string van
 conversation.sendJSONMessage(lJsonOutklascodes);					
 }
+	private void sessiesaanpassen(Conversation conversation) {
+		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
+		
+		Klas gekozenklas = null;
+		
+		String lGebruikersnaam = lJsonObjIn.getString("username");
+	  	String datum = lJsonObjIn.getString("datum");
+	  	String klascode = lJsonObjIn.getString("klas");
+	  	
+	  	Docent dedocent = informatieSysteem.getDocent(lGebruikersnaam);
+	  	ArrayList<Klas> deklassen = informatieSysteem.getKlassenvanDocentmetKlas(dedocent);
+	  	ArrayList<String> deklascodes = informatieSysteem.getKlassenvanDocent(dedocent);
+		for (Klas dejuisteklas : deklassen){
+			if (dejuisteklas.getKlasCode().equals(klascode)){
+				
+			}
+		}
+	}
 }
