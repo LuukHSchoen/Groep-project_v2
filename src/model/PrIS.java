@@ -111,6 +111,14 @@ public class PrIS {
 		return lCal;
 	}
 	
+	public ArrayList<Docent> getDocenten(){
+		return deDocenten;
+	}
+	
+	public ArrayList<Klas> getKlassen(){
+		return deKlassen;
+	}
+	
 	public ArrayList<Presentie> studentPresentieInzien(String dat, Student deStud){
 		ArrayList<Presentie> studentPresenties = new ArrayList<Presentie>();
 		for(Sessie pSessie: deSessies){
