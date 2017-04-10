@@ -37,16 +37,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </paper-listbox>  
 
  <br>
+<br>
 
 
-	<template is="dom-repeat" items="[[_c_klascodes]]">
-	<tr>
-		<td>[[item.klascode]]</td>
-	</tr>
-	</template>
-
-    
-    
 	<iron-ajax 
 	id="ajax_aanpassen" 
 	method="POST"
@@ -55,12 +48,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	on-response="_ophalen_aanpassen_response_handler"> 
 	</iron-ajax> 
 	
+	<iron-ajax 
+	id="ajax_sessie" 
+	method="POST"
+	url="/my-presentiesAanpassen/sessie" 
+	handle-as="json"
+	on-response="_sessie_aanpassen_reponse_handler"> 
+	</iron-ajax> 
+	
 	 <paper-button
       id="login_button_element"
       on-click="_ophalen_aanpassen_request_handler"
       raised>
        Uw klassen
     </paper-button>
+    
+    <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{type}}"> 
+    <template is="dom-repeat" items="[[_c_klascodes]]">
+    <tr><paper-item value="{{item.klascode}}">[[item.klascode]]</paper-item></tr>    
+    </template>
+    </paper-listbox>
+    
+    <br>
+    <br>
+    
+    <paper-button
+      id="Verzend_button_element"
+      on-click="submitForm"
+      raised>
+       Bevestig klas
+    </paper-button>
+    
+    <br>
+   	<br>
+   	
+  
 
 </template>
 
@@ -73,10 +95,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		is : 'my-presentiesAanpassen',
 		
 		properties: {
-			_c_college: {
-				type: String,
+			_c_klascodes: {
+				type: Array,
 			},
-			klascodes : {
+			_c_sessies: {
 				type: Array,
 			},
 			datum: {
@@ -100,22 +122,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				 if (this.type == "" || this.type == "undefined"|| this.datum == "") {
 						alert('Ongeldige invoer');
 					} else {
-						sessionStorage.datumabsentie = "" + this.datum;
-						sessionStorage.reden = this.type;
-						   
-						alert('Presentie woord aangepast voor ' + this.datum + '.');
+						datumString =  "" + this.datum;
+						this.gebruiker = sessionStorage.username;
+						console.log("_ophalen_aanpassen_request_handler username= " + this.gebruiker + this.datum + this.type);
+						this.$.ajax_sessie.contentType="application/json";
+						this.$.ajax_sessie.body={
+						       "username":this.gebruiker,
+						       "datum":this.datum,
+						       "klas":this.type,
+						      };
+						      this.$.ajax_sessie.generateRequest();
+						      
+						      console.log("test2")
+						    	      }
+						
 				
 					}
-			 }else {
+			 else {
 				 alert('De ingevulde datum is niet correct.');
 			 }
 		 },
+		 
+			 
+		 
+		 _sessie_aanpassen_reponse_handler : function(request) {
+			 this.gebruiker = sessionStorage.username;
+	         console.log("_sessie_aanpassen_response_handler username="+ this.gebruiker);
+	            this._c_sessies = request.detail.response;
+			 
+		 },
+		 
 		 
 		 _ophalen_aanpassen_request_handler : function() {
 			
 
 			  	  this.gebruiker = sessionStorage.username;
-			    	
 			    console.log("_ophalen_aanpassen_request_handler username= " + this.gebruiker + this.datum);
 			      this.$.ajax_aanpassen.contentType="application/json";
 			      this.$.ajax_aanpassen.body={
