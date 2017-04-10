@@ -148,6 +148,20 @@ public class PrIS {
 		return klassenLijst;
 	}
 	
+	public Sessie vergelijkDeSessie(String inf){
+		Sessie deSes = null;
+		for(Sessie ses : deSessies){
+			deSes = ses;
+			String s =		ses.getCursus().getcursusCode() + 
+					" - " + ses.getKlas().getKlasCode() + 
+					" - " + ses.getCollege().getBeginEnEindTijd();
+			if (s.equals(inf)){
+				return deSes;
+			}
+		}
+		return deSes;
+	}
+	
 	public ArrayList<Presentie> getStudentenVanSessie(Sessie ses){
 		ArrayList<Presentie> studentenLijst = ses.getCollege().getdePresentie();
 		return studentenLijst;	
