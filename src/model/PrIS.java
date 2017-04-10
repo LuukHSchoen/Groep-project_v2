@@ -689,6 +689,7 @@ public class PrIS {
 				}
 				if (getCursusOpCode(vakcode) == null){
 					deCursussen.add(new Cursus(vakcode,"default"));
+					
 				}
 				 
 				destudent = deklas.getStudenten();

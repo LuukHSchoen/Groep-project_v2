@@ -35,6 +35,7 @@ public class PresentieAanpassenvervolgController implements Handler {
 		String lGebruikersnaam = lJsonObjIn.getString("username");
 		String destring = lJsonObjIn.getString("destring");	
 	  	Docent dedocent = informatieSysteem.getDocent(lGebruikersnaam);	
+	  	
 	  	Sessie desessie = informatieSysteem.vergelijkDeSessie(destring);
 	  	
 	  	JsonArrayBuilder lJsonArrayBuilder = Json.createArrayBuilder();	
@@ -53,7 +54,6 @@ public class PresentieAanpassenvervolgController implements Handler {
 	  		.add("reden", reden)
 	  		.add("absentie", absentie);
 	  lJsonArrayBuilder.add(lJsonObjectBuilderstudent);	
-		
 		
 	}
 	String lJsonOutstudenten = lJsonArrayBuilder.build().toString();												// maak er een string van
