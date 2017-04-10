@@ -17,9 +17,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{datum}}">
 	<vaadin-date-picker  label="Kies een datum" value="{{datum}}" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
-</paper-listbox>  
+</paper-listbox>  <br>
 
-
+<table>
+	<tr>
+		<th class="cursuscode">Cursuscode</th>
+		<th class="tijd">Tijd</th>
+		<th class="absent">Present</th>		
+		
+	</tr>
 	<template is="dom-repeat" items="[[_c_desessies]]">
 	<tr>
 		<td class="cursuscode" style="padding:10px 20px;">[[item.cursuscode]]</td>
@@ -42,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <paper-button
       class="my-button"
-      on-click="submitForm">Getsessies
+      on-click="submitForm">Absentie ophalen
     </paper-button>
 
   </template>
@@ -76,8 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     	  },
     	  submitForm: function() {
  			 var res = sessionStorage.datum;
- 			 alert("Huidige systeemdatum " + res);
- 			 alert("Ingevoerde systeemdatum " + this.datum);
+ 			 
  		
  			 
  			 if (this.datum <= res) {				 
