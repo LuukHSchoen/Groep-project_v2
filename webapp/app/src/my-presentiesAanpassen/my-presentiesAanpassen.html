@@ -127,9 +127,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		},
 		
 		submitde: function(){
-			sessionStorage.presentieaanpas = this.keuze
+			sessionStorage.presentieaanpas = this.keuze;
+			alert("Volgende pagina");
 			location.href = "#/my-PresentieAanpassen-vervolg";
-		}
+		},
 
 		 submitForm: function() {
 			 var res = sessionStorage.datum;
