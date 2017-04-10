@@ -159,15 +159,18 @@ public class PrIS {
 	public Sessie vergelijkDeSessie(String inf){
 		Sessie deSes = null;
 		for(Sessie ses : deSessies){
-			deSes = ses;
 			String s =		ses.getCursus().getcursusCode() + 
 					" - " + ses.getKlas().getKlasCode() + 
 					" - " + ses.getCollege().getBeginEnEindTijd();
 			if (s.equals(inf)){
-				return deSes;
+				deSes = ses;
 			}
 		}
 		return deSes;
+	}
+	
+	public ArrayList<Sessie> getSessies(){
+		return deSessies;
 	}
 	
 	public ArrayList<Presentie> getStudentenVanSessie(Sessie ses){
@@ -684,6 +687,9 @@ public class PrIS {
 						deklas = degoedeklas;
 				}
 				}
+				if (getCursusOpCode(vakcode) == null){
+					deCursussen.add(new Cursus(vakcode,"default"));
+				}
 				 
 				destudent = deklas.getStudenten();
 				
@@ -695,8 +701,6 @@ public class PrIS {
 				
 				College deCollege = new College(datum,begintijd,eindtijd,depresentie);
 				dS.add(new Sessie(deCollege, deklas, dedocent,getCursusOpCode(vakcode)));
-				
-				
 
 				
 
