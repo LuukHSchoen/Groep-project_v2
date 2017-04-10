@@ -58,13 +58,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 	Polymer({
 		is : 'my-presentiesInvoeren',
-		
+		properties: {
 		
 		
 		c_visible: {
             type: Boolean,                                      /* true when element is the active visible item */
             value: false,
-            observer: '_ophalen_sessies_request_handler', 
+            observer: '_college_ophalen_response_handler', 
+		},
             
             gebruiker: {
           	  type : String,
@@ -75,30 +76,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             _c_colleges: {
                 type: Array,           /* array<student-info>: student-info = {id, firstName, lastName, sameGroup}						array is constant groepnr is changable */
               },
-            
+		},
             
 		
 		_college_ophalen_request_handler: function() {	
 			if (this.c_visible) {
 				this.datumString = sessionStorage.datum;
 			  	this.gebruiker = sessionStorage.username;
+			  	console.log()
 			  	
 			    this.$.ajax_college_ophalen.contentType="application/json";
 		          this.$.ajax_college_ophalen.body={
-		            "username":this.c_gebruiker
+		            "username":this.c_gebruiker,
 		            "datum":this.datumString,
 		          };
 		          this.$.ajax_college_ophalen.generateRequest();
-		        },
+		        }
 				
 			},			
 			
-	        
-	        
-	        _college_ophalen_response_handler: function(request) {
+			_college_ophalen_response_handler: function(request) {
 	        	console.log(this.c_username)
 	        	this._c_colleges = request.detail.response;	            
 	          },
+	        
+	       
 		
 		 ready: function() {
 		        this.employees = [
