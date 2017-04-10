@@ -49,8 +49,8 @@ public class Application {
   	server.registerHandler("/my-absent-CollegeSelecteren/sessiesopslaan", studentgetsessiecontroller);
   	
   	server.registerHandler("my-presentieInvoeren/ophalen", docentgetstudentencontroller);
-  	server.registerHandler("my-presentiesAanpassen/ophalen", presentiesaanpassencontroller);
-	
+  	server.registerHandler("/my-presentiesAanpassen/ophalen", presentiesaanpassencontroller);
+  	
 		
 		server.start();
 	}
