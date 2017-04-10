@@ -4,6 +4,7 @@ package controller;
 import java.util.ArrayList;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -27,6 +28,35 @@ public class PresentieAanpassenvervolgController implements Handler {
 		  if (conversation.getRequestedURI().startsWith("/my-PresentieAanpassen-vervolg/studenten")) {
 				studentenabsenties(conversation);
 			}
+		  if (conversation.getRequestedURI().startsWith("/my-PresentieAanpassen-vervolg/studentenopslaan")){
+			  studentenopslaan(conversation);
+		  }
+	}
+	private void studentenopslaan(Conversation conversation){
+		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
+	  	String lGebruikersnaam = lJsonObjIn.getString("username");
+	  	String destring = lJsonObjIn.getString("destring");
+	  	String dedatum = lJsonObjIn.getString("dedatum");
+	  	JsonArray arraystudenten = lJsonObjIn.getJsonArray("studenten");
+	  	
+	  	Sessie desessies = informatieSysteem.vergelijkDeSessie(destring,dedatum);
+	    int studentid = 0;
+
+	  	
+		
+	  	if (arraystudenten != null) { 
+	  		
+	    	for (int i=0;i<arraystudenten.size();i++){
+	    		JsonObject sessie = arraystudenten.getJsonObject(i);
+	    		studentid = sessie.getInt("studentid");
+	    		boolean absent = sessie.getBoolean("absentie");
+	    		for (Presentie depresentie : desessies.getCollege().getdePresentie()){
+	    			if (depresentie.getStudent().getStudentNummer()== studentid){
+	    			depresentie.setPresentieDoorDocent(absent);
+	    					}
+	  			}
+	    	}
+	}
 	}
 	
 	private void studentenabsenties(Conversation conversation) {
@@ -46,12 +76,12 @@ public class PresentieAanpassenvervolgController implements Handler {
 	  		String voornaam = depresenties.getStudent().getVoornaam();
 	  		String achternaam = depresenties.getStudent().getVolledigeAchternaam();
 	  		String reden = "" + depresenties.getredenAbsentie();
+	  		String naam = voornaam + "" + achternaam;
 	  		boolean absentie = depresenties.getPresentie();
 	  		JsonObjectBuilder lJsonObjectBuilderstudent = Json.createObjectBuilder(); // maak het JsonObject voor een student
 	  		lJsonObjectBuilderstudent
 			.add("studentid", studentid)
-	  		.add("voornaam", voornaam)
-	  		.add("achternaam", achternaam)
+	  		.add("voornaam", naam)
 	  		.add("reden", reden)
 	  		.add("absentie", absentie);
 	  lJsonArrayBuilder.add(lJsonObjectBuilderstudent);	

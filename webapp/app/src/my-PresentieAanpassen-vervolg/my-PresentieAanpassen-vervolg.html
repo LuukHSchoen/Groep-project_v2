@@ -33,8 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <table>
 	<tr>
 		<th class="studentid">StudentID</th>
-		<th class="voornaam">Voornaam</th>
-		<th class="achternaam">Achternaam</th>
+		<th class="naam">Naam</th>
 		<th class="reden">reden</th>
 		<th class="absentie">Present</th>
 		
@@ -42,8 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<template is="dom-repeat" items="[[_c_studenten]]">
 	<tr>
 		<td class="studentid">[[item.studentid]]</td>
-		<td class="voornaam">[[item.voornaam]]</td>
-		<td class="achternaam">[[item.achternaam]]</td>
+		<td class="naam">[[item.voornaam]]</td>
 		<td class="reden">[[item.reden]]</td>
              <td><paper-checkbox
               class="my-check"
@@ -57,6 +55,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-click="_ophalen_studenten_request_handler"
       raised> De Studenten
     </paper-button>	
+    
+      <paper-button
+      id="Sessies_vrager2"
+      on-click="_opslaan_studenten_request_handler"
+      raised> Opslaan wijzingen 
+    </paper-button>
 
 <iron-ajax 
 	id="ajax_student" 
@@ -64,6 +68,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	url="/my-PresentieAanpassen-vervolg/studenten" 
 	handle-as="json"
 	on-response="_ophalen_studenten_reponse_handler"> 
+	</iron-ajax>
+	
+	<iron-ajax 
+	id="ajax_studentopslaan" 
+	method="POST"
+	url="/my-PresentieAanpassen-vervolg/studentenopslaan" 
+	handle-as="json"
+	on-response="_opslaan_studenten_response_handler"> 
 	</iron-ajax>
 	
 </template>
@@ -133,7 +145,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			          if (this._c_studenten == null){
 			        	  alert("test voor leegte");
 			          }
-			      }
+			      },
+			      
+			      _opslaan_studenten_request_handler : function() {
+			    	  this.destring = sessionStorage.presentiestring; 
+				  	  this.gebruiker = sessionStorage.username;
+				  	 if (this._c_studenten == null){
+			        	  alert("test voor leegte");
+				  	 }
+			    	  this.$.ajax_studentopslaan.contentType="application/json";
+				      this.$.ajax_studentopslaan.body={
+			    	  "username":this.gebruiker,
+				       "destring":this.destring,
+				       "dedatum":sessionStorage.dedatum,
+				       "studenten":this._c_studenten,
+				      };
+				       
+				       console.log("_opslaan_studenten_request_handler"+ this.gebruiker);
+			      		this.$.ajax_studentopslaan.generateRequest();
+
+			 
+			      },
+			      _opslaan_studenten_response_handler : function(request) {
+			    	  console.log(request.detail.response.test);         
+			          this._go_home();		/* verlaat de pagina en ga terug naar home page */
+			      },
+			      _go_home: function() {
+		                var lApp = document.querySelector('my-app');  //het polymer element <my-app>
+		                var lAppRouter = lApp.$.approuter;            // het html-element <app-route> met id=approuter
+		                lAppRouter.data={page: ""};
+		            },
 		 
     });
 })();
