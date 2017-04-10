@@ -347,16 +347,17 @@ public class PrIS {
 		}
 		return null;
 	}
-	public ArrayList<Sessie> getSessieDocent(String gebruikersnaam, String dm, Sessie cC, Sessie ks, Sessie tijd) {
-		ArrayList<Sessie> getDocentSessies = new ArrayList<Sessie>();
+	public ArrayList<String> getSessieDocent(String dat, Docent doc) {
+		ArrayList<String> docentSessielijst = new ArrayList<String>();
 		for(Sessie pSessie : deSessies){
-			if (pSessie.getCollege().getDatum().equals(dm) && pSessie.getDocent().getGebruikersnaam().equals(gebruikersnaam)){
-				getDocentSessies.add(cC);
-				getDocentSessies.add(ks);
-				getDocentSessies.add(tijd);
+			if (pSessie.getCollege().getDatum().equals(dat) && pSessie.getDocent().getGebruikersnaam().equals(doc.getGebruikersnaam())){
+				String s = pSessie.getCollege().getDatum() + 
+						" - " + pSessie.getKlas().getKlasCode() + 
+						" - " + pSessie.getCollege().getBeginEnEindTijd();
+				docentSessielijst.add(s);
 			}
 		}
-		return getDocentSessies;	
+		return docentSessielijst;	
 	}
 	
 	public ArrayList<Student> getDocentKlass(String cC, String ks, String tijd, Student deStud){
