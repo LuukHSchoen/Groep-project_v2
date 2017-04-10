@@ -35,6 +35,26 @@ public class DocentGetStudentenController implements Handler {
 		
 		String lGebruikersnaam = lJsonObjIn.getString("username");
 	  	String datum = lJsonObjIn.getString("datum");
+	  	
+	  	Klas deklas = informatieSysteem.getDocentKlass(informatieSysteem.getStudent(datum,lGebruikersnaam));
+	  	
+	  	JsonArrayBuilder lJsonArrayBuilder = Json.createArrayBuilder();	
+	  	
+	  	JsonObjectBuilder lJsonObjectBuildergeminstesessie = Json.createObjectBuilder();
+	  	
+	  	String cursuscode = "TICT-V1OODC-15_2016";
+	  	String klascode = "TICT-SIE-V1D";
+	  	String tijd = "11:00 tot 12:00";
+	  	
+	  	lJsonObjectBuildergeminstesessie
+		.add("cursuscode", cursuscode)																//vul het JsonObject		     
+		.add("klascode", klascode)
+		.add("tijd", tijd);
+	
+	  	lJsonArrayBuilder.add(lJsonObjectBuildergeminstesessie);	
+	  	
+	  	String lJsonOutGemisteSessie = lJsonArrayBuilder.build().toString();												// maak er een string van
+		conversation.sendJSONMessage(lJsonOutGemisteSessie);
 		
 		
 		
