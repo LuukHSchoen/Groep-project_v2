@@ -63,25 +63,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<h1>Absent melden voor college:</h1>
 </center>
 
-<table class="tabel">
+
+<table>
 	<tr>
 		<th class="cursuscode">Cursuscode</th>
 		<th class="tijd">Tijd</th>
-		<th class="absent">Absent?</th>
+		<th class="absent">Absent?</th> 
 		
 	</tr>
 	<template is="dom-repeat" items="[[_c_sessies]]">
 	<tr>
-		<td class="cursuscode">[[item.cursuscode]]</td>
-		<td class="tijd">[[item.tijd]]</td>
-		<td class="absent">
+		<td class="cursuscode" style="padding:10px 20px;">[[item.cursuscode]]</td>
+		<td class="tijd" style="padding:10px 20px;">[[item.tijd]]</td>
+		<td class="absent" style="padding:10px 20px;">
              <paper-checkbox
               class="my-check"
               checked="{{item.aanwezig}}">
             </paper-checkbox></td>
 	</tr>
 	</template>
-</table>
+</table> <br>
       <paper-button
       id="Sessies_vrager"
       on-click="_opslaan_sessiesopslaan_request_handler"
