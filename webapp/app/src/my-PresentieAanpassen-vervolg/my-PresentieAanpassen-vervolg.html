@@ -45,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<td class="voornaam">[[item.voornaam]]</td>
 		<td class="achternaam">[[item.achternaam]]</td>
 		<td class="reden">[[item.reden]]</td>
-             <paper-checkbox
+             <td><paper-checkbox
               class="my-check"
               checked="{{item.absentie}}">
             </paper-checkbox></td>
@@ -109,12 +109,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			    if (this.c_visible) {
 			      this.destring = sessionStorage.presentiestring; 
 			  	  this.gebruiker = sessionStorage.username;
+			  	 
 			    	
-			    console.log("_ophalen_studenten_request_handler username= " + this.gebruiker);
+			    console.log("_ophalen_studenten_request_handler username= " + this.gebruiker + this.destring + sessionStorage.dedatum);
 			      this.$.ajax_student.contentType="application/json";
 			      this.$.ajax_student.body={
 			       "username":this.gebruiker,
 			       "destring":this.destring,
+			       "dedatum":sessionStorage.dedatum,
 			      };
 			      console.log("test")
 			  
@@ -128,6 +130,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			    	  this.gebruiker = sessionStorage.username;
 			          console.log("_ophalen_studenten_reponse_handler"+ this.gebruiker);
 			          this._c_studenten = request.detail.response;
+			          if (this._c_studenten == null){
+			        	  alert("test voor leegte");
+			          }
 			      }
 		 
     });

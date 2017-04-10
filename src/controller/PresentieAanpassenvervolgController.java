@@ -24,7 +24,7 @@ public class PresentieAanpassenvervolgController implements Handler {
 		informatieSysteem = infoSys;
 	}
 	public void handle(Conversation conversation) {
-		  if (conversation.getRequestedURI().startsWith("/my-PresentieAanpassen-vervol/studenten")) {
+		  if (conversation.getRequestedURI().startsWith("/my-PresentieAanpassen-vervolg/studenten")) {
 				studentenabsenties(conversation);
 			}
 	}
@@ -33,10 +33,11 @@ public class PresentieAanpassenvervolgController implements Handler {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
 		
 		String lGebruikersnaam = lJsonObjIn.getString("username");
-		String destring = lJsonObjIn.getString("destring");	
+		String destring = lJsonObjIn.getString("destring");
+		String dedatum = lJsonObjIn.getString("dedatum");
 	  	Docent dedocent = informatieSysteem.getDocent(lGebruikersnaam);	
 	  	
-	  	Sessie desessie = informatieSysteem.vergelijkDeSessie(destring);
+	  	Sessie desessie = informatieSysteem.vergelijkDeSessie(destring,dedatum);
 	  	
 	  	JsonArrayBuilder lJsonArrayBuilder = Json.createArrayBuilder();	
 	  	
