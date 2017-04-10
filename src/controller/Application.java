@@ -54,7 +54,7 @@ public class Application {
   	server.registerHandler("/my-presentiesAanpassen/ophalen", presentiesaanpassencontroller);
   	server.registerHandler("/my-presentiesAanpassen/sessie", presentiesaanpassencontroller);
   	
-  	server.registerHandler("/my-PresentieAanpassen-vervolg/studenten", presentiesaanpassencontroller);
+  	server.registerHandler("/my-PresentieAanpassen-vervolg/studenten", presentiesaanpassenvervolgcontroller);
   	
 		
 		server.start();
