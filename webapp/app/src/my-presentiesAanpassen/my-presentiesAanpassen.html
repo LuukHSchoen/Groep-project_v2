@@ -133,9 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		},
 
 		 submitForm: function() {
-			 var res = sessionStorage.datum;
-			 alert("Huidige systeemdatum " + res);
-			 alert("Ingevoerde systeemdatum " + this.datum);
+			 var res = sessionStorage.datum;			 
 			 sessionStorage.dedatum = this.datum;
 			 
 			 if (this.datum <= res) {				 
