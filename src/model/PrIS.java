@@ -347,11 +347,13 @@ public class PrIS {
 		}
 		return null;
 	}
-	public ArrayList<String> getSessieDocent(String dat, Docent doc) {
+	public ArrayList<String> getSessieDocent(String dat, String gebrnm) {
 		ArrayList<String> docentSessielijst = new ArrayList<String>();
-		for(Sessie pSessie : deSessies){
-			if (pSessie.getCollege().getDatum().equals(dat) && pSessie.getDocent().getGebruikersnaam().equals(doc.getGebruikersnaam())){
-				String s = pSessie.getCollege().getDatum() + 
+		for(Sessie pSessie : deSessies)
+		{
+			if (pSessie.getCollege().getDatum().equals(dat) && pSessie.getDocent().getGebruikersnaam().equals(gebrnm))
+			{
+				String s = pSessie.getCursus().getcursusCode() + 
 						" - " + pSessie.getKlas().getKlasCode() + 
 						" - " + pSessie.getCollege().getBeginEnEindTijd();
 				docentSessielijst.add(s);
