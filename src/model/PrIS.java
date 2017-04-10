@@ -148,6 +148,19 @@ public class PrIS {
 		return klassenLijst;
 	}
 	
+	public ArrayList<Klas> getKlassenvanDocentmetKlas(Docent doc){
+		ArrayList<Klas> klassenLijst = new ArrayList<Klas>();
+		for (Sessie ses : deSessies){
+			if (ses.getDocent().equals(doc)){
+				if(!klassenLijst.contains(ses.getKlas()))
+				{
+					klassenLijst.add(ses.getKlas());
+				}
+			}
+		}
+		return klassenLijst;
+	}
+	
 	public ArrayList<Presentie> docentPresentieInzien(String dat, String kCode, String begEindTijd){
 		
 		ArrayList<Presentie> presentieLijst = new ArrayList<Presentie>();
