@@ -221,7 +221,7 @@ public class PrIS {
 	public int aantalAbsentiesSessies(Sessie ds){
 		int teller = 0;
 		for (Presentie ps : ds.getCollege().getdePresentie()){
-			if(ps.getPresentie() == true){
+			if(ps.getPresentie() == false){
 				teller +=1;
 			}
 		}

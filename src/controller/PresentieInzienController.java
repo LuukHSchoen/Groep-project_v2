@@ -38,35 +38,41 @@ public class PresentieInzienController implements Handler {
   	ArrayList<Sessie> desessies = informatieSysteem.getSessies();
   	ArrayList<Sessie> degoedeses = new ArrayList<Sessie>();
   	
-  	boolean checkbegin = false;
   	boolean checkeind = false;
   	
   	
 	JsonArrayBuilder lJsonArrayBuilder = Json.createArrayBuilder();	
 	
-	while (checkbegin = false){
-		for (Sessie desessie : desessies){
-			if (desessie.getCollege().getDatum().getClass().equals(begindatum)){
-				while (checkeind = false){
-					if (!desessie.getCollege().getDatum().getClass().equals(eindatum)){
-					degoedeses.add(desessie);
-				}
-					else{
-						checkeind = true;
-					}
+	for (Sessie desessie : desessies){
+		
+		if (desessie.getCollege().getDatum().equals(begindatum)){
+		
+			
+			while (checkeind == false){
+				
+				for (Sessie cesessie : desessies){
+					
+				if (cesessie.getCollege().getDatum().equals(eindatum)){
+				checkeind = true;
+				break;
+				
+			
 			}
+				else{
+					degoedeses.add(cesessie);
+				}
 		}
-		checkbegin = true;
 	}
-	}
+}
+}
 	
 	for (Klas deklas : deklassen){
 		int present = 0;
 		int absent = 0;
 		ArrayList<Sessie> klassessies = informatieSysteem.filterOpSessieOpKlas(deklas.getKlasCode(),degoedeses);
 		for (Sessie sels : klassessies){
-			present = present + informatieSysteem.aantalAbsentiesSessies(sels);
-			absent = absent + informatieSysteem.aantalPresentieSessies(sels);
+			present = present + informatieSysteem.aantalPresentieSessies(sels);
+			absent = absent + informatieSysteem.aantalAbsentiesSessies(sels);
 		}
   		JsonObjectBuilder lJsonObjectBuilderspresentie = Json.createObjectBuilder(); // maak het JsonObject voor een student
   		lJsonObjectBuilderspresentie
