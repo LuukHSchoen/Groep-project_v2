@@ -39,8 +39,7 @@ public class Application {
 		StudentGetSessieController studentgetsessiecontroller = new StudentGetSessieController(infoSysteem);
 		DocentGetStudentenController docentgetstudentencontroller = new DocentGetStudentenController(infoSysteem);
 		PresentieAanpassenController presentiesaanpassencontroller = new PresentieAanpassenController(infoSysteem);
-		PresentieAanpassenvervolgController presentiesaanpassenvervolgcontroller = new PresentieAanpassenvervolgController(
-				infoSysteem);
+		PresentieAanpassenvervolgController presentiesaanpassenvervolgcontroller = new PresentieAanpassenvervolgController(infoSysteem);				
 		StudentinzienController studentinziencontroller = new StudentinzienController(infoSysteem);
 		PresentieInzienController presentieinziencontroller = new PresentieInzienController(infoSysteem);
 
