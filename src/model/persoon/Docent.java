@@ -1,10 +1,10 @@
 package model.persoon;
 
-
 public class Docent extends Persoon {
 	private int docentNummer;
-	
-	public Docent(String voornaam, String tussenvoegsel, String achternaam, String wachtwoord, String gebruikersnaam, int docentNummer) {
+
+	public Docent(String voornaam, String tussenvoegsel, String achternaam, String wachtwoord, String gebruikersnaam,
+			int docentNummer) {
 		super(voornaam, tussenvoegsel, achternaam, wachtwoord, gebruikersnaam);
 		docentNummer = 0;
 	}
@@ -16,5 +16,5 @@ public class Docent extends Persoon {
 	public void setDocentNummer(int docentNummer) {
 		this.docentNummer = docentNummer;
 	}
-	
+
 }

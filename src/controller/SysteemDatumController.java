@@ -44,6 +44,7 @@ public class SysteemDatumController implements Handler {
 
 		String lJsonOut = lJsonObjectBuilder.build().toString();
 		
-		conversation.sendJSONMessage(lJsonOut);										// terugsturen naar de Polymer-GUI!	}
-  }
+		conversation.sendJSONMessage(lJsonOut); // terugsturen naar de
+												// Polymer-GUI! }
+	}
 }

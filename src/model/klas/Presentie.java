@@ -13,39 +13,39 @@ public class Presentie {
 	private Sessie deSessie;
 	private boolean present;
 	private String redenAbsentie;
-	
-	public Presentie(Student dSt){
+
+	public Presentie(Student dSt) {
 		deStudent = dSt;
 	}
-	
+
 	public Presentie(Student dSt, boolean pt) {
 		deStudent = dSt;
 		present = pt;
 	}
-	
+
 	public void setPresentieDoorDocent(boolean pt) {
 		present = pt;
 	}
-	//Voor de eerste Use Case
-	public void setPresentieDoorStudent(boolean pt, String re){
+
+	// Voor de eerste Use Case
+	public void setPresentieDoorStudent(boolean pt, String re) {
 		present = pt;
 		redenAbsentie = re;
 	}
-	
-	public boolean getPresentie(){
+
+	public boolean getPresentie() {
 		return present;
 	}
-	
-	public String getredenAbsentie(){
+
+	public String getredenAbsentie() {
 		return redenAbsentie;
 	}
-	
-	public Student getStudent(){
+
+	public Student getStudent() {
 		return deStudent;
 	}
-	
-	public Sessie getSessie(){
+
+	public Sessie getSessie() {
 		return deSessie;
 	}
 }
-	

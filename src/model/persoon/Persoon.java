@@ -33,7 +33,7 @@ public abstract class Persoon {
 	}
 
 	public String getVolledigeAchternaam() {
-		String lVolledigeAchternaam="";
+		String lVolledigeAchternaam = "";
 		if (this.tussenvoegsel != null && this.tussenvoegsel != "" && this.tussenvoegsel.length() > 0) {
 			lVolledigeAchternaam += this.tussenvoegsel + " ";
 		}
