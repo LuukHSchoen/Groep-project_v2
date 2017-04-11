@@ -69,4 +69,5 @@ public class Application {
 
 		server.start();
 	}
+	{}
 }
