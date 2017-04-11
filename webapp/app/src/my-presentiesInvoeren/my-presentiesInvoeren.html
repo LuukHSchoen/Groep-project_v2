@@ -32,14 +32,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <center><h1>Kies het college</h1></center>
 
-
-  <paper-listbox>
-    <template is="dom-repeat" items="{{employees}}">
-        <paper-item>Voornaam: {{item.first}} , achternaam: {{item.last}}</paper-item>       
+  <paper-button
+      id="getstuff"
+      on-click="_college_ophalen_request_handler"
+      raised> Ophalen
+    </paper-button>
+    
+    <br>
+    
+  <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{keuze}}"> 
+    <template is="dom-repeat" items="[[_c_sessies]]">
+    <tr><paper-item value="{{item.destring}}">[[item.destring]]</paper-item></tr>    
     </template>
-  </paper-listbox> 
-  
+    </paper-listbox> 
+    
+    
+    <br>
+    <br>
+    
+      <paper-button
+      id="getstuff2"
+      on-click="_college_ophalenstudenten_request_handler"
+      raised> Ophalen
+    </paper-button>
+    
+    <table>
+	<tr>
+		<th class="studentid">StudentID</th>
+		<th class="naam">Naam</th>
+		<th class="absentie">Present</th>
+		
+	</tr>
+	<template is="dom-repeat" items="[[_c_studenten]]">
+	<tr>
+		<td class="studentid" style="padding:10px 20px;">[[item.studentid]]</td>
+		<td class="naam" style="padding:10px 20px;">[[item.voornaam]]</td>
+		<td class="reden" style="padding:10px 20px;">[[item.reden]]</td>
+             <td><paper-checkbox
+              class="my-check"
+              checked="{{item.absentie}}">
+            </paper-checkbox></td>
+	</tr>
+	</template>
+</table> <br>
 
+      <paper-button
+      id="getstuff3"
+      on-click="_college_opslaanstudenten_request_handler"
+      raised> Opslaan
+    </paper-button>
  
   <iron-ajax
       id="ajax_college_ophalen"
@@ -48,7 +89,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handle-as="json"
       on-response="_college_ophalen_response_handler">
     </iron-ajax>
-     
+ 
+   <iron-ajax
+      id="ajax_college_ophalenstudenten"
+      method="POST"
+      url="/my-presentiesInvoeren/studenten"
+      handle-as="json"
+      on-response="_college_ophalenstudenten_response_handler">
+    </iron-ajax>
+    
+      <iron-ajax
+      id="ajax_college_opslaanstudenten"
+      method="POST"
+      url="/my-presentiesInvoeren/opslaan"
+      handle-as="json"
+      on-response="_college_opslaanstudenten_response_handler">
+    </iron-ajax>
+    
+    
  
 </template>
  
@@ -58,14 +116,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	Polymer({
 		is : 'my-presentiesInvoeren',
 		properties: {
-		
-		
-		c_visible: {
-            type: Boolean,                                      /* true when element is the active visible item */
-            value: false,
-            observer: '_college_ophalen_response_handler', 
-		},
-            
+            _c_sessies:{
+            	type : Array,
+            },
+            _c_studenten:{
+            	type : Array,
+            },
             c_gebruiker: {
           	  type : String,
             },
@@ -79,39 +135,73 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             
 		
 		_college_ophalen_request_handler: function() {	
-			if (this.c_visible) {
+			   this._c_studenten == null;
 				this.datumString = sessionStorage.datum;
 			  	this.c_gebruiker = sessionStorage.username;
-			  	
-			  	
+			    console.log("_college_ophalen_respone_handler"+ this.c_gebruiker + this.datumString);
 			    this.$.ajax_college_ophalen.contentType="application/json";
 		          this.$.ajax_college_ophalen.body={
 		            "username":this.c_gebruiker,
 		            "datum":this.datumString,
 		          };
 		          this.$.ajax_college_ophalen.generateRequest();
-		        }				
-			},	
+		        },				
 			
-			_college_ophalen_respone_handler: function(request) {
+			
+			_college_ophalen_response_handler: function(request) {
+				this.gebruiker = sessionStorage.username;
+	            console.log("_college_ophalen_respone_handler"+ this.gebruiker);
+	            this. _c_sessies = request.detail.response;
+			},
+			
+			_college_ophalenstudenten_request_handler: function(){
+				this.datumString = sessionStorage.datum;
+			  	this.c_gebruiker = sessionStorage.username;
+				console.log("_college_ophalenstudenten_request_handler " + this.gebruiker + this.datumString + this.keuze);
+				  this.$.ajax_college_ophalenstudenten.contentType="application/json";
+				 this.$.ajax_college_ophalenstudenten.body={
+				            "username":this.c_gebruiker,
+				            "dedatum":this.datumString,
+				            "destring":this.keuze,
+				          };
+				          this.$.ajax_college_ophalenstudenten.generateRequest();
+				        },
+				        
+			_college_ophalenstudenten_response_handler: function(request){
+				this.gebruiker = sessionStorage.username;
+	            console.log("_college_ophalenstudenten_respone_handler"+ this.gebruiker);
+	            this._c_studenten = request.detail.response;
 				
-			}
+			},
 			
-			
-			/*
-			_college_ophalen_response_handler : function(request) {	        	
-	        	this._c_colleges = request.detail.response;	            
-	          },
-	           	*/             
-	       
-		
-		 ready: function() {
-		        this.employees = [
-		        	//Hier moet output van alle klas codes komen
-		            {first: 'Bob', last: 'Smith'},
-		            {first: 'Sally', last: 'Johnson'},		           
-		        ];
-		      }
+			_college_opslaanstudenten_request_handler: function(){
+				this.datumString = sessionStorage.datum;
+			  	this.c_gebruiker = sessionStorage.username;
+				this.$.ajax_college_opslaanstudenten.contentType="application/json";
+				this.$.ajax_college_opslaanstudenten.body={
+				    	  "username":this.c_gebruiker,
+					       "destring":this.keuze,
+					       "dedatum":this.datumString,
+					       "studenten":this._c_studenten,
+				};
+					       
+					       console.log("_opslaan_studenten_request_handler"+ this.c_gebruiker);
+				      		this.$.ajax_college_opslaanstudenten.generateRequest();
+				
+			},
+		      _college_opslaanstudenten_response_handler : function(request) {  
+		    	  alert("De gegevens zijn opgeslagen.")
+		    	  this._c_studenten == null;
+		          this._go_home();		/* verlaat de pagina en ga terug naar home page */
+		      },
+		      _go_home: function() {
+	                var lApp = document.querySelector('my-app');  //het polymer element <my-app>
+	                var lAppRouter = lApp.$.approuter;            // het html-element <app-route> met id=approuter
+	                lAppRouter.data={page: ""};
+	            },
+				        
+				   
+
 		
 		
 });

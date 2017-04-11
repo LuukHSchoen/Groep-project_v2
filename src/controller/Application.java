@@ -51,7 +51,11 @@ public class Application {
   	server.registerHandler("/my-absent-CollegeSelecteren/sessiesopslaan", studentgetsessiecontroller);
   	
   	
-  	server.registerHandler("my-presentieInvoeren/ophalen", docentgetstudentencontroller);
+  	server.registerHandler("/my-presentiesInvoeren/ophalen", docentgetstudentencontroller);
+  	server.registerHandler("/my-presentiesInvoeren/studenten", docentgetstudentencontroller);
+  	server.registerHandler("/my-presentiesInvoeren/opslaan", docentgetstudentencontroller);
+  	
+  	
   	server.registerHandler("/my-presentiesAanpassen/ophalen", presentiesaanpassencontroller);
   	server.registerHandler("/my-presentiesAanpassen/sessie", presentiesaanpassencontroller);
   	
@@ -59,6 +63,9 @@ public class Application {
   	server.registerHandler("/my-PresentieAanpassen-vervolg/studentenopslaan", presentiesaanpassenvervolgcontroller);
   	
   	server.registerHandler("/my-presentiesinzien/ophalen", studentinziencontroller);
+  	
+
+  	
   		
 		server.start();
 	}
