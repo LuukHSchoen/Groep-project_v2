@@ -218,6 +218,27 @@ public class PrIS {
 		return teller;
 	}
 	
+	public int aantalAbsentiesSessies(Sessie ds){
+		int teller = 0;
+		for (Presentie ps : ds.getCollege().getdePresentie()){
+			if(ps.getPresentie() == true){
+				teller +=1;
+			}
+		}
+		return teller;
+	}
+	
+	public int aantalPresentieSessies(Sessie ds){
+		int teller = 0;
+		for (Presentie ps : ds.getCollege().getdePresentie()){
+			if(ps.getPresentie() == true){
+				teller +=1;
+			}
+		}
+		return teller;
+	}
+	
+	
 	public int aantalPresentKlas(String dat, Klas kl, String begEindTijd){
 		int teller = 0;
 		for (Presentie p : docentPresentieInzien(dat, kl.getKlasCode(), begEindTijd)){
@@ -368,6 +389,17 @@ public class PrIS {
 		return getsessies;
 		
 	}
+	
+	public ArrayList<Sessie> filterOpSessieOpKlas(String ks, ArrayList<Sessie> ses){
+		ArrayList<Sessie> filter = new ArrayList<Sessie>();
+		for(Sessie pSessie : ses){
+			if (pSessie.getKlas().getKlasCode().equals(ks)){
+				filter.add(pSessie);
+			}
+		}
+		return(filter);
+	}
+
 	
 	//Om een sessie te krijgen via datum, tijd en klas;
 	public Sessie getSessieOpDatumEnKlasEntijd (String dm, String ks, String tijd){

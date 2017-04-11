@@ -39,6 +39,7 @@ public class Application {
 		PresentieAanpassenController presentiesaanpassencontroller = new PresentieAanpassenController(infoSysteem);
 		PresentieAanpassenvervolgController presentiesaanpassenvervolgcontroller = new PresentieAanpassenvervolgController(infoSysteem);
 		StudentinzienController studentinziencontroller = new StudentinzienController(infoSysteem);
+		PresentieInzienController presentieinziencontroller = new PresentieInzienController(infoSysteem);
 		
 		server.registerHandler("/systeemdatum/lesinfo", systeemDatumController);
 
@@ -64,6 +65,7 @@ public class Application {
   	
   	server.registerHandler("/my-presentiesinzien/ophalen", studentinziencontroller);
   	
+  	server.registerHandler("/my-overzicht/ophalen", presentieinziencontroller);
 
   	
   		

@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 
-<dom-module id="my-overzichtAlles"> <template>
+<dom-module id="my-overzicht"> <template>
 <style>
 :host {
 	display: block;
@@ -28,15 +28,124 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 </style>
 
+<center><h1>Overzicht van presenties:</h1></center>
 
+<center><h2>Kies de begin datum:</h2></center>
 
-<center><h1>Kies uw reden:</h1></center>
- 
+<paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{datumbegin}}">
+<vaadin-date-picker  label="Kies een datum" value="{{datumbegin}}" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
+</paper-listbox>
 
+<center><h2>Kies de eind datum:</h2></center>
+
+<paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{datumeind}}">
+	<vaadin-date-picker  label="Kies een datum" value="{{datumeind}}" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
+</paper-listbox>    
+
+<paper-button
+      	id="login_button_element"
+      	on-click="submitForm"
+      	raised>
+      	Presenties
+     </paper-button> <br>
+     
+     <table>
+	<tr>
+		<th class="klascode">Klascodes</th>
+		<th class="present">Aantal Present</th>
+		<th class="absent">Aantal Absent</th> 
+		
+	</tr>
+	<template is="dom-repeat" items="[[_c_presenties]]">
+	<tr>
+		<td class="klascode" style="padding:10px 20px;">[[item.klascode]]</td>
+		<td class="present" style="padding:10px 20px;">[[item.present]]</td>
+		<td class="absent" style="padding:10px 20px;">[[item.absent]]</td>
+        
+	</tr>
+	</template>
+</table> <br>
+
+	<iron-ajax
+    id="ajax_klassen"
+    method="POST"
+    url="/my-overzicht/ophalen"
+    handle-as="json"
+    on-response="_ophalen_klassen_response_handler">
+    </iron-ajax>
 
 </template> <script>
-	Polymer({
-		is : 'my-overzichtAlles',
-	});
-</script> </dom-module>
+(function() {
+    'use strict';        
+   
+    Polymer({
+      is: 'my-overzicht',
+
+      properties: {
+        _c_presenties: {
+          type: Array,           
+        },
+        c_rol: {
+          type: String,
+        },
+        c_username: {
+          type: String,
+        },
+        datumStringbegin: {
+        	type: String,
+        },
+        datumStringeind : {
+        	type: String,
+        },
+        c_visible: {
+          type: Boolean,                                      /* true when element is the active visible item */
+          value: false,
+       
+                           /* wordt ook aangeroepen bijwisseling van true naar false.
+                                                als c_visible false is */
+        },
+      },
+     
+      _ophalen_klassen_response_handler: function(request){
+    	  this.c_username = sessionStorage.username;
+          console.log("_ophalen_klassen_respone_handler "+ this.c_username);
+          this._c_presenties = request.detail.response;
+      },
+      
+      submitForm: function() {
+    	  this._c_presenties = null;
+			 if (this.datumbegin <= this.datumeind) {				 
+				 if (this.datumbegin == "" || this.datumeind == "") {
+						alert('Ongeldige invoer');
+					} else {
+						this.datumStringbegin =  "" + this.datumbegin;
+						this.datumStringeind = "" + this.datumeind;
+						this.gebruiker = sessionStorage.username;
+						console.log("_ophalen_aanpassen_request_handler username= " + this.gebruiker + " " + this.datumbegin + " " + this.datumeind + this.type);
+						this.$.ajax_klassen.contentType="application/json";
+						this.$.ajax_klassen.body={
+						       "username":this.gebruiker,
+						       "datumbegin":this.datumStringbegin,
+						       "datumeind":this.datumStringeind,
+						      };
+						      this.$.ajax_klassen.generateRequest();
+						      
+						      console.log("test2")
+						    	      }
+						
+				
+					}
+			 else {
+				 alert('De ingevulde datum is niet correct.');
+			 }
+		 },
+		 
+
+    
+
+    });
+  })();
+</script>
+</dom-module>
+
 

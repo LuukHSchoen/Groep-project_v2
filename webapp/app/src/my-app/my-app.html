@@ -189,14 +189,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   
                   <!-- beschikbaar voor decaan---------------------------------------------------- -->
                   
-                   <a name="my-overzichtAlles" href$="[[_c_baseURL]]my-overzichtAlles" verborgen$="[[!_are_strings_equal(_rol, 'decaan')]]">
+                   <a name="my-overzicht" href$="[[_c_baseURL]]my-overzicht" verborgen$="[[!_are_strings_equal(_rol, 'decaan')]]">
                     <iron-icon icon="icons:today"></iron-icon>
                     <span>Overzicht aanwezigheid</span>
                   </a> 
                   
                    <!-- beschikbaar voor management---------------------------------------------------- -->
                    
-                  <a name="my-overzichtAlles" href$="[[_c_baseURL]]my-overzichtAlles" verborgen$="[[!_are_strings_equal(_rol, 'management')]]">
+                  <a name="my-overzicht" href$="[[_c_baseURL]]my-overzicht" verborgen$="[[!_are_strings_equal(_rol, 'management')]]">
                     <iron-icon icon="icons:today"></iron-icon>
                     <span>Overzicht aanwezigheid</span>
                   </a> 
@@ -358,12 +358,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </paper-material>
                 </section>      
                 
-                <section  name="my-overzichtAlles" 
+                <section  name="my-overzicht" 
                   title="OVERZICHT AANWEZIGHEID" 
-                  element="my-overzichtAlles">
+                  element="my-overzicht">
                   <paper-material elevation="1">
-                    <my-my-overzicht
-                    c_visible="[[_are_strings_equal(_ar_page, 'my-overzichtAlles)]]"
+                    <my-overzicht
+                    c_visible="[[_are_strings_equal(_ar_page, 'my-overzicht)]]"
                     c_rol="[[_rol]]"
                     c_username="[[_username]]"> </my-overzicht>
                   </paper-material>
