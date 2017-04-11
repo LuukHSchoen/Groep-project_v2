@@ -70,6 +70,7 @@ call bower install --save PolymerElements/paper-button
 call bower install --save PolymerElements/paper-checkbox
 call bower install --save PolymerElements/paper-input
 call bower install --save PolymerElements/paper-toast
+call bower install --save PolymerElements/paper-toggle-button
 
 rem ---------------------------------------------------------
 rem de volgende componenten worden in de rest van de  app gebruikt
