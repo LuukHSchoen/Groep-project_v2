@@ -24,6 +24,7 @@ class LoginController implements Handler {
 		informatieSysteem = infoSys;
 	}
 
+	
 	public void handle(Conversation conversation) {
 		if (conversation.getRequestedURI().startsWith("/login")) {
 			login(conversation);
