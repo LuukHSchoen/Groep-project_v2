@@ -32,6 +32,7 @@ public class StudentinzienController implements Handler {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
 
 		boolean aanwezig = true;
+		String string = "";
 		String lGebruikersnaam = lJsonObjIn.getString("username");
 		String datum = lJsonObjIn.getString("datum");
 
@@ -48,6 +49,14 @@ public class StudentinzienController implements Handler {
 					aanwezig = depresentie.getPresentie();
 				}
 			}
+			
+			if (aanwezig == false){
+				string = "Nee";
+			}
+			else{
+				string = "Ja";
+			}
+			
 
 			String cursuscode = deSessie.getCursus().getcursusCode();
 			String begineneindtijd = deSessie.getCollege().getBeginEnEindTijd();
@@ -60,7 +69,7 @@ public class StudentinzienController implements Handler {
 			lJsonObjectBuildergeminstesessie2.add("cursuscode", cursuscode) // vul
 																			// het
 																			// JsonObject
-					.add("tijd", begineneindtijd).add("aanwezig", aanwezig);
+					.add("tijd", begineneindtijd).add("aanwezig", string);
 
 			lJsonArrayBuilder.add(lJsonObjectBuildergeminstesessie2); // voeg
 																		// het

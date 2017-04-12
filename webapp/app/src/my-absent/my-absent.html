@@ -46,15 +46,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <br>
 <center><h1>Kies uw datum:</h1></center>
 <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{datum}}">
-	<vaadin-date-picker max="laastedatum" label="Kies een datum" value="datum" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
+	<vaadin-date-picker label="Kies een datum" value="{{datum}}" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
 </paper-listbox>  
 
+ <paper-button
+      id="Verzenden"
+      on-click='submitForm'
+      raised> Studenten ophalen
+    </paper-button>	
  <br>
-  <paper-button
-      id="Sessies_vrager"
-      on-click="submitForm"
-      raised> Verzend
-    </paper-button>
 
 </template>
  
@@ -81,7 +81,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			},
 			laastedatum: {
 				type: Date,
-				value:  sessionStorage.laastedatum,
 			},
 			
 			gebruiker: {
@@ -99,8 +98,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		},
 
 		 submitForm: function() {
-			 var res = sessionStorage.datum;			
-			 
+			 if (this.c_visible){
+			 var res = sessionStorage.datum;
+	
+			
 			 if (this.datum >= res) {				 
 				 if (this.type == "" || this.type == "undefined"|| this.datum == "") {
 						alert('Ongeldige invoer');
@@ -114,6 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			 }else {
 				 alert('De ingevulde datum is niet correct.');
 			 }
+		 }
 		 }
 
 		 

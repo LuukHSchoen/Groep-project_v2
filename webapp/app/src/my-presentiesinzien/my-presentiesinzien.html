@@ -1,19 +1,48 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 
-<dom-module id="my-presentiesInzien"> <template>   
-<center><h1>Presenties inzien:</h1></center>
+<dom-module id="my-presentiesinzien"> 
+<template>
 
-<center><h2>Kies uw datum:</h2></center>
+<style>
+:host {
+	display: block;
+	padding: 10px 20px;
+}
+
+      .tijd {
+        min-width: 100px;
+        text-align: left;
+        
+      }
+      .my-check {
+       min-width: 100px;
+       text-align: center;
+       }
+       
+      .my-button {
+        width: 100%;                        /* full width */
+        color: white;                       /* white tekst */
+        background: #1a9fd9;                /* kind of blue */
+        --paper-button-ink-color: #00567B;  /* kind of dark blue */
+        margin-top: 5px;                    /* enlarge thet default */
+        margin-left: 0px;                   /* reduce the default */
+      }
+
+</style>
+
+<center>
+	<h1>Inzien van presentie:</h1>
+</center>
 
 <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{datum}}">
 	<vaadin-date-picker  label="Kies een datum" value="{{datum}}" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
@@ -30,14 +59,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<tr>
 		<td class="cursuscode" style="padding:10px 20px;">[[item.cursuscode]]</td>
 		<td class="tijd" style="padding:10px 20px;">[[item.tijd]]</td>
-		<td class="absent" style="padding:10px 20px;">
-             <paper-checkbox disabled
-              class="my-check"
-              checked="{{item.aanwezig}}">
-            </paper-checkbox></td>
+		<td class="absent" style="padding:10px 20px;">[[item.aanwezig]]</td>
 	</tr>
 	</template>
 </table> <br>
+
     <iron-ajax
       id="ajax_studentziet"
       method="POST"
@@ -46,11 +72,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-response="_student_ophalen_response_handler">
     </iron-ajax>
 
-  <paper-button
-  	  raised
-      class="my-button"
-      on-click="submitForm">Absentie ophalen
-    </paper-button>
 
   </template>
   <script>
@@ -68,6 +89,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   			},
   			datum: {
   				type: Date,
+  				 observer: 'submitForm',
   			},
   			datumString: {
   				type: String,
@@ -80,10 +102,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   	          _c_collegeinfo: {
   	            type: Object,                   
   	          },
+  	          
+  	        c_visible: {
+	            type: Boolean,                                  
+	            value: false,                                                     
+	          },
     	  },
     	  submitForm: function() {
+    		 if (this.c_visible){
  			 var res = sessionStorage.datum;
- 			 
  		
  			 
  			 if (this.datum <= res) {				 
@@ -108,6 +135,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  			 else {
  				 alert('De ingevulde datum is niet correct.');
  			 }
+    		 }
  		 },
  		 
  		_student_ophalen_response_handler: function(request){
@@ -115,7 +143,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  	        console.log("_ophalen_sessiesinfo_response_handler username="+ this.gebruiker);
  	        this._c_desessies = request.detail.response;
  		 },
-      
+    	
     	 
       
     });

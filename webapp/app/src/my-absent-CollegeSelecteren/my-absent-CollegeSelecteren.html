@@ -24,7 +24,7 @@
     --paper-toggle-button-checked-ink-color: var(--paper-green-500);
     --paper-toggle-button-unchecked-bar-color:  var(--paper-red-500);
     --paper-toggle-button-unchecked-button-color:  var(--paper-red-500);
-    --paper-toggle-button-unchecked-ink-color: var(--paper-red-500);}
+    --paper-toggle-button-unchecked-ink-color: var(--paper-red-500);
     }
       .tijd {
         min-width: 100px;
@@ -70,7 +70,7 @@
 	</template>
 </table> 
 <br>
-<center>Vergeet dat je de college(s) moet selecteren waarvoor je absent bent~!
+<center>Vergeet niet dat je de college(s) moet selecteren waarvoor je absent bent~!
 
 <br><br>
       <paper-button
@@ -139,6 +139,7 @@
      
     _ophalen_sessies_request_handler : function() {
     if (this.c_visible) {
+    	this._c_sessies = null;
 	  this.datumString = sessionStorage.datumabsentie;
   	  this.gebruiker = sessionStorage.username;
     	
@@ -160,6 +161,7 @@
    	 	this.gebruiker = sessionStorage.username;
         console.log("_ophalen_sessiesinfo_response_handler username="+ this.gebruiker);
         this._c_sessies = request.detail.response;
+        
       },
       
       _opslaan_sessiesopslaan_request_handler: function() {
@@ -186,11 +188,14 @@
       	alert('Je bent succesvol absent gemeld op ' + sessionStorage.datumabsentie + ' met reden: ' + sessionStorage.reden + '.');
           this._go_home();		/* verlaat de pagina en ga terug naar home page */
         }
-          if (request.detail.response.aanwezig == false && request.detail.response.trueinput == true){
-        	  alert("Meld het bij de je docent als je toch weer aanwezig bent!");
+          else if (request.detail.response.aanwezig == false && request.detail.response.trueinput == true){
+        	  alert("Meld het bij je docent als je toch weer aanwezig bent!");
           }
-          if (request.detail.response.aanwezig == false && request.detail.response.trueinput == false && request.detail.response.vergelijk == true){
+          else if (request.detail.response.aanwezig == false && request.detail.response.trueinput == false && request.detail.response.vergelijk == true){
         	  alert("Je staat hiervoor al absent gemeld!");
+          }
+          else {
+          alert("Het lijkt erop dat je vergeten bent om een college te selecteren, waarvoor je NIET aanwezig bent.")
           }
     	  },
         
