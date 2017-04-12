@@ -45,9 +45,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  
 <br>
 <center><h1>Kies uw datum:</h1></center>
-
 <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{datum}}">
-	<vaadin-date-picker  label="Kies een datum" value="{{datum}}" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
+	<vaadin-date-picker max="laastedatum" label="Kies een datum" value="datum" style="width:49%;padding:10px 20px;"></vaadin-date-picker>
 </paper-listbox>  
 
  <br>
@@ -76,6 +75,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			datumString: {
 				type: String,
 			},
+			eerstedatum: {
+				type: Date,
+				value : sessionStorage.eerstedatum,
+			},
+			laastedatum: {
+				type: Date,
+				value:  sessionStorage.laastedatum,
+			},
 			
 			gebruiker: {
 				type: String,
@@ -100,6 +107,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					} else {
 						sessionStorage.datumabsentie = "" + this.datum;
 						sessionStorage.reden = this.type;
+						this.type = null;
+						this.datum = null;
 						location.href = "#/my-absent-CollegeSelecteren";
 					}
 			 }else {

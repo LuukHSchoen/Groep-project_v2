@@ -43,6 +43,8 @@ public class StudentGetSessieController implements Handler {
 		Klas deklas = informatieSysteem.getKlasVanStudent(informatieSysteem.getStudent(lGebruikersnaam));
 		ArrayList<Sessie> desessies = informatieSysteem.getSessiesOpDatumEnKlas(datum, deklas.getKlasCode());
 		boolean absent = true;
+		boolean vergelijk = false;
+		
 		if (arraysessies != null) {
 			for (int i = 0; i < arraysessies.size(); i++) {
 				JsonObject sessie = arraysessies.getJsonObject(i);
@@ -51,6 +53,9 @@ public class StudentGetSessieController implements Handler {
 					for (Sessie getsessie : desessies) {
 						for (Presentie depresentie : getsessie.getCollege().getdePresentie()) {
 							if (depresentie.getStudent().equals(informatieSysteem.getStudent(lGebruikersnaam))) {
+								if (depresentie.getPresentie() == absent){
+									vergelijk = true;
+								}
 								depresentie.setPresentieDoorStudent(false, reden);
 							}
 						}
@@ -58,21 +63,30 @@ public class StudentGetSessieController implements Handler {
 				}
 			}
 		}
+		boolean trueinput = false;
+		if (absent == true){
+			trueinput = true;
+		}
+		
+		
 		boolean als = true;
 		for (Sessie getsessie : desessies) {
 			for (Presentie depresentie : getsessie.getCollege().getdePresentie()) {
 				if (depresentie.getStudent().equals(informatieSysteem.getStudent(lGebruikersnaam))) {
 					if (false == depresentie.getPresentie()){ 
 							als = depresentie.getPresentie();
+		
 				}
 			}
 		}
 		}
 			
 		JsonObjectBuilder lJsonObjectBuilder2 = Json.createObjectBuilder();
-		lJsonObjectBuilder2.add("aanwezig", als); // en teruggekregen
-													// gebruikersrol als
-													// JSON-object...
+		lJsonObjectBuilder2
+		.add("aanwezig", als)
+		.add("vergelijk", vergelijk)
+		.add("trueinput",trueinput);										// gebruikersrol als
+												
 		String lJsonOut = lJsonObjectBuilder2.build().toString();
 		conversation.sendJSONMessage(lJsonOut);
 	}
@@ -107,10 +121,10 @@ public class StudentGetSessieController implements Handler {
 																								// voor
 																								// een
 																								// student
-			lJsonObjectBuildergeminstesessie.add("cursuscode", cursuscode) // vul
-																			// het
-																			// JsonObject
-					.add("tijd", begineneindtijd).add("aanwezig", aanwezig);
+			lJsonObjectBuildergeminstesessie
+			.add("cursuscode", cursuscode) 
+					.add("tijd", begineneindtijd)
+					.add("aanwezig", aanwezig);
 
 			lJsonArrayBuilder.add(lJsonObjectBuildergeminstesessie); // voeg het
 																		// JsonObject

@@ -153,11 +153,14 @@
             request.detail.response.eerste_lesdatum + " tot " +
             request.detail.response.laatste_lesdatum);
           var lApp = document.querySelector('my-app');
+          sessionStorage.eerstedatum = request.detail.response.eerste_lesdatum;
+          sessionStorage.laastedatum = request.detail.response.laatste_lesdatum;
           this._c_lesinfo = {
             "eerste_lesdatum_lokaal":
             	lApp.standaarddatumstring_to_lokaledatumstring(request.detail.response.eerste_lesdatum),
             "laatste_lesdatum_lokaal":
-            	lApp.standaarddatumstring_to_lokaledatumstring(request.detail.response.laatste_lesdatum)
+            	lApp.standaarddatumstring_to_lokaledatumstring(request.detail.response.laatste_lesdatum),
+            	
           };
         },
 

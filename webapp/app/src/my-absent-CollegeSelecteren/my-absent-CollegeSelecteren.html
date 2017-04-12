@@ -182,12 +182,15 @@
     	    },
     	    
     	  _opslaan_sessiesopslaan_response_handler: function(request) {
-          if (request.detail.response.aanwezig == false){
+          if (request.detail.response.aanwezig == false && request.detail.response.trueinput == false && request.detail.response.vergelijk == false){
       	alert('Je bent succesvol absent gemeld op ' + sessionStorage.datumabsentie + ' met reden: ' + sessionStorage.reden + '.');
           this._go_home();		/* verlaat de pagina en ga terug naar home page */
         }
-          else{
-        	  alert("Hé sukkeltje! Er is geen college opgegeven waar je absent voor bent!");
+          if (request.detail.response.aanwezig == false && request.detail.response.trueinput == true){
+        	  alert("Meld het bij de je docent als je toch weer aanwezig bent!");
+          }
+          if (request.detail.response.aanwezig == false && request.detail.response.trueinput == false && request.detail.response.vergelijk == true){
+        	  alert("Je staat hiervoor al absent gemeld!");
           }
     	  },
         
