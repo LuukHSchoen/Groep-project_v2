@@ -76,7 +76,7 @@ public class PresentieAanpassenvervolgController implements Handler {
 			String voornaam = depresenties.getStudent().getVoornaam();
 			String achternaam = depresenties.getStudent().getVolledigeAchternaam();
 			String reden = "" + depresenties.getredenAbsentie();
-			String naam = voornaam + "" + achternaam;
+			String naam = voornaam + " " + achternaam;
 			boolean absentie = depresenties.getPresentie();
 			JsonObjectBuilder lJsonObjectBuilderstudent = Json.createObjectBuilder(); // maak
 																						// het
