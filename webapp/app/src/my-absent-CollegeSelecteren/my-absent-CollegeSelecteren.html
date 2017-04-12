@@ -1,13 +1,3 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
@@ -18,28 +8,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 
+<dom-module id="my-absent-CollegeSelecteren"> 
+<template>
 
 <style>
 :host {
 	display: block;
 	padding: 10px 20px;
 }
-
-
-
- .cursuscode {
-        min-width: 100px;
-        text-align: left;
-       }
+		paper-toggle-button.toggle{
+	--paper-toggle-button-checked-bar-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-button-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-ink-color: var(--paper-green-500);
+    --paper-toggle-button-unchecked-bar-color:  var(--paper-red-500);
+    --paper-toggle-button-unchecked-button-color:  var(--paper-red-500);
+    --paper-toggle-button-unchecked-ink-color: var(--paper-red-500);}
+    }
       .tijd {
         min-width: 100px;
         text-align: left;
         
-      }
-      .absent {
-        min-width: 100px;
-        text-align: left;
       }
       .my-check {
        min-width: 100px;
@@ -56,8 +46,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 </style>
 
-<dom-module id="my-absent-CollegeSelecteren"> <template>
-
 
 <center>
 	<h1>Absent melden voor college:</h1>
@@ -68,7 +56,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<tr>
 		<th class="cursuscode">Cursuscode</th>
 		<th class="tijd">Tijd</th>
-		<th class="absent">Absent?</th> 
+		<th class="absent">Presentie</th> 
 		
 	</tr>
 	<template is="dom-repeat" items="[[_c_sessies]]">
@@ -76,18 +64,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<td class="cursuscode" style="padding:10px 20px;">[[item.cursuscode]]</td>
 		<td class="tijd" style="padding:10px 20px;">[[item.tijd]]</td>
 		<td class="absent" style="padding:10px 20px;">
-             <paper-checkbox
-              class="my-check"
-              checked="{{item.aanwezig}}">
-            </paper-checkbox></td>
+		<paper-toggle-button class="toggle" checked = "{{item.aanwezig}}"></paper-toggle-button>
+           </td>
 	</tr>
 	</template>
-</table> <br>
+</table> 
+<br>
+<center>Vergeet dat je de college(s) moet selecteren waarvoor je absent bent~!
+
+<br><br>
       <paper-button
       id="Sessies_vrager"
       on-click="_opslaan_sessiesopslaan_request_handler"
-      raised> Absenties verwerken
+      raised> Presentie verzenden
     </paper-button>
+    </center>
+    
+    
 
 	<iron-ajax 
 	id="ajax_sessiesinfo" 
@@ -170,6 +163,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       
       _opslaan_sessiesopslaan_request_handler: function() {
+    	  //Om de opgegeven absenties te verzenden naar de java code
+    	  
     	  this.gebruiker = sessionStorage.username;
     	  this.datumString = sessionStorage.datumabsentie;
     	  this.reden = sessionStorage.reden;
@@ -180,19 +175,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     	              "colleges":this._c_sessies,
     	              "username":this.gebruiker,
     	              "datum":this.datumString,
+    	              "datumhuidig":sessionStorage.datum,
     	              "reden":this.reden,
     	      };
-    	      console.log("test3")
-    	  
     	      this.$.ajax_sessiesopslaan.generateRequest();
-    	      
-    	      console.log("test4")
     	    },
     	    
     	  _opslaan_sessiesopslaan_response_handler: function(request) {
-          console.log(request.detail.response.aanwezig);         
+          if (request.detail.response.aanwezig == false){
+      	alert('Je bent succesvol absent gemeld op ' + sessionStorage.datumabsentie + ' met reden: ' + sessionStorage.reden + '.');
           this._go_home();		/* verlaat de pagina en ga terug naar home page */
-        },
+        }
+          else{
+        	  alert("Hé sukkeltje! Er is geen college opgegeven waar je absent voor bent!");
+          }
+    	  },
         
         _go_home: function() {
             var lApp = document.querySelector('my-app');  //het polymer element <my-app>

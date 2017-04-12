@@ -38,14 +38,15 @@ public class StudentGetSessieController implements Handler {
 		String lGebruikersnaam = lJsonObjIn.getString("username");
 		String datum = lJsonObjIn.getString("datum");
 		String reden = lJsonObjIn.getString("reden");
+		String huidigedatum = lJsonObjIn.getString("datumhuidig");
 
 		Klas deklas = informatieSysteem.getKlasVanStudent(informatieSysteem.getStudent(lGebruikersnaam));
 		ArrayList<Sessie> desessies = informatieSysteem.getSessiesOpDatumEnKlas(datum, deklas.getKlasCode());
-
+		boolean absent = true;
 		if (arraysessies != null) {
 			for (int i = 0; i < arraysessies.size(); i++) {
 				JsonObject sessie = arraysessies.getJsonObject(i);
-				boolean absent = sessie.getBoolean("aanwezig");
+				absent = sessie.getBoolean("aanwezig");
 				if (absent == false) {
 					for (Sessie getsessie : desessies) {
 						for (Presentie depresentie : getsessie.getCollege().getdePresentie()) {
@@ -61,10 +62,13 @@ public class StudentGetSessieController implements Handler {
 		for (Sessie getsessie : desessies) {
 			for (Presentie depresentie : getsessie.getCollege().getdePresentie()) {
 				if (depresentie.getStudent().equals(informatieSysteem.getStudent(lGebruikersnaam))) {
-					als = depresentie.getPresentie();
+					if (false == depresentie.getPresentie()){ 
+							als = depresentie.getPresentie();
 				}
 			}
 		}
+		}
+			
 		JsonObjectBuilder lJsonObjectBuilder2 = Json.createObjectBuilder();
 		lJsonObjectBuilder2.add("aanwezig", als); // en teruggekregen
 													// gebruikersrol als
@@ -72,6 +76,7 @@ public class StudentGetSessieController implements Handler {
 		String lJsonOut = lJsonObjectBuilder2.build().toString();
 		conversation.sendJSONMessage(lJsonOut);
 	}
+
 
 	private void sessiesinfo(Conversation conversation) {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
