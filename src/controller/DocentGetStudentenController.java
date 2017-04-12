@@ -65,12 +65,12 @@ public class DocentGetStudentenController implements Handler {
 
 	private void ophalenstudenten(Conversation conversation) {
 		JsonObject lJsonObjIn = (JsonObject) conversation.getRequestBodyAsJSON();
-
+		String reden = "niet nodig";
 		String lGebruikersnaam = lJsonObjIn.getString("username");
 		String destring = lJsonObjIn.getString("destring");
 		String dedatum = lJsonObjIn.getString("dedatum");
 		Docent dedocent = informatieSysteem.getDocent(lGebruikersnaam);
-
+		
 		Sessie desessie = informatieSysteem.vergelijkDeSessie(destring, dedatum);
 
 		JsonArrayBuilder lJsonArrayBuilder = Json.createArrayBuilder();
@@ -79,8 +79,10 @@ public class DocentGetStudentenController implements Handler {
 			int studentid = depresenties.getStudent().getStudentNummer();
 			String voornaam = depresenties.getStudent().getVoornaam();
 			String achternaam = depresenties.getStudent().getVolledigeAchternaam();
-			String reden = "" + depresenties.getredenAbsentie();
-			String naam = voornaam + "" + achternaam;
+			if (depresenties.getredenAbsentie()!=null){
+				reden = depresenties.getredenAbsentie();
+			}
+			String naam = voornaam + " " + achternaam;
 			boolean absentie = depresenties.getPresentie();
 			JsonObjectBuilder lJsonObjectBuilderstudent = Json.createObjectBuilder(); // maak
 																						// het

@@ -17,6 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 
 
 
@@ -26,6 +27,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	display: block;
 	padding: 10px 20px;
 }
+paper-toggle-button.toggle{
+	--paper-toggle-button-checked-bar-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-button-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-ink-color: var(--paper-green-500);
+    --paper-toggle-button-unchecked-bar-color:  var(--paper-red-500);
+    --paper-toggle-button-unchecked-button-color:  var(--paper-red-500);
+    --paper-toggle-button-unchecked-ink-color: var(--paper-red-500);
+    }
+
 
 
 </style>
@@ -34,19 +44,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<tr>
 		<th class="studentid">StudentID</th>
 		<th class="naam">Naam</th>
-		<th class="reden">reden</th>
-		<th class="absentie">Present</th>
+		<th class="absentie">Presentie</th>
 		
 	</tr>
 	<template is="dom-repeat" items="[[_c_studenten]]">
 	<tr>
 		<td class="studentid" style="padding:10px 20px;">[[item.studentid]]</td>
 		<td class="naam" style="padding:10px 20px;">[[item.voornaam]]</td>
-		<td class="reden" style="padding:10px 20px;">[[item.reden]]</td>
-             <td><paper-checkbox
-              class="my-check"
-              checked="{{item.absentie}}">
-            </paper-checkbox></td>
+          <td><paper-toggle-button class="toggle" checked = "{{item.absentie}}"></paper-toggle-button>
+           </td>
 	</tr>
 	</template>
 </table> <br>
@@ -114,7 +120,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	          
 	          c_visible: {
 	            type: Boolean,                                  
-	            value: false, 
+	            value: false,
+	            
 	          },
 		},
 		  _ophalen_studenten_request_handler : function() {
@@ -131,11 +138,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			       "destring":this.destring,
 			       "dedatum":sessionStorage.dedatum,
 			      };
-			      console.log("test")
+			   
 			  
 			      this.$.ajax_student.generateRequest();
 			      
-			      console.log("test2")
+			  
 			    }
 			      },
 			      

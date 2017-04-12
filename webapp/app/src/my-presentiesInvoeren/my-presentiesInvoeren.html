@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel='import' href='../../bower_components/paper-input/paper-input.html'/>
 <link rel='import' href='../../bower_components/paper-dialog/paper-dialog.html'/>
 <link rel='import' href='../../bower_components/iron-icons/iron-icons.html'/>
-
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
 
 <dom-module id="my-presentiesInvoeren"> <template>
 <style>
@@ -24,6 +24,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	display: block;
 	padding: 10px 20px;
 }
+paper-toggle-button.toggle{
+	--paper-toggle-button-checked-bar-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-button-color:  var(--paper-green-500);
+    --paper-toggle-button-checked-ink-color: var(--paper-green-500);
+    --paper-toggle-button-unchecked-bar-color:  var(--paper-red-500);
+    --paper-toggle-button-unchecked-button-color:  var(--paper-red-500);
+    --paper-toggle-button-unchecked-ink-color: var(--paper-red-500);
+    }
 
 
 </style>
@@ -31,6 +39,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 
 <center><h1>Kies het college</h1></center>
+
+Selecteer een college van vandaag om de presenties te doen.
 
   <paper-button
       id="getstuff"
@@ -50,17 +60,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <br>
     <br>
     
-      <paper-button
-      id="getstuff2"
-      on-click="_college_ophalenstudenten_request_handler"
-      raised> Ophalen
-    </paper-button>
     
     <table>
 	<tr>
 		<th class="studentid">StudentID</th>
 		<th class="naam">Naam</th>
-		<th class="absentie">Present</th>
+		<th class="absentie">Reden voor absentie</th>
+		<th class="toggle">Presentie</th>
 		
 	</tr>
 	<template is="dom-repeat" items="[[_c_studenten]]">
@@ -68,10 +74,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<td class="studentid" style="padding:10px 20px;">[[item.studentid]]</td>
 		<td class="naam" style="padding:10px 20px;">[[item.voornaam]]</td>
 		<td class="reden" style="padding:10px 20px;">[[item.reden]]</td>
-             <td><paper-checkbox
-              class="my-check"
-              checked="{{item.absentie}}">
-            </paper-checkbox></td>
+        <td><paper-toggle-button class="toggle" checked = "{{item.absentie}}"></paper-toggle-button>
+           </td>
 	</tr>
 	</template>
 </table> <br>
@@ -122,6 +126,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             _c_studenten:{
             	type : Array,
             },
+            keuze:{
+            	type : String,
+            	observer : "_college_ophalenstudenten_request_handler",
+            },
             c_gebruiker: {
           	  type : String,
             },
@@ -155,6 +163,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			},
 			
 			_college_ophalenstudenten_request_handler: function(){
+				 this._c_studenten == null;
 				this.datumString = sessionStorage.datum;
 			  	this.c_gebruiker = sessionStorage.username;
 				console.log("_college_ophalenstudenten_request_handler " + this.gebruiker + this.datumString + this.keuze);
@@ -192,6 +201,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		      _college_opslaanstudenten_response_handler : function(request) {  
 		    	  alert("De gegevens zijn opgeslagen.")
 		    	  this._c_studenten == null;
+		    	  this. _c_sessies == null;
 		          this._go_home();		/* verlaat de pagina en ga terug naar home page */
 		      },
 		      _go_home: function() {
